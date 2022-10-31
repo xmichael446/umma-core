@@ -1,0 +1,12 @@
+syntax = "proto3";
+package juno.v11.factory;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/umma-chain/core-umma/x/factory/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}

@@ -1,0 +1,44 @@
+syntax = "proto3";
+package juno.v11.factory;
+
+import "factory/denom.proto";
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/umma-chain/core-umma/x/factory/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc CreateDenom(MsgCreateDenom) returns (MsgCreateDenomResponse);
+  rpc UpdateDenom(MsgUpdateDenom) returns (MsgUpdateDenomResponse);
+  // this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateDenom {
+  string owner = 1;
+  string denom = 2;
+
+  string description = 3;
+  string ticker = 4;
+  int32 precision = 5;
+  string siteUrl = 6;
+  string logoUrl = 7;
+  int32 maxSupply = 8;
+  bool canChangeMaxSupply = 9;
+}
+message MsgCreateDenomResponse {}
+
+message MsgUpdateDenom {
+  string owner = 1;
+  string denom = 2;
+
+  string description = 3;
+  string siteUrl = 4;
+  string logoUrl = 5;
+  int32 maxSupply = 6;
+  int32 supply = 7;
+  bool canChangeMaxSupply = 8;
+}
+message MsgUpdateDenomResponse {}
+
+
+// this line is used by starport scaffolding # proto/tx/message

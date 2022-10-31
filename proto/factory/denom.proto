@@ -1,0 +1,18 @@
+syntax = "proto3";
+package juno.v11.factory;
+
+option go_package = "github.com/umma-chain/core-umma/x/factory/types";
+
+message Denom {
+  string denom = 1; 
+  string description = 2; 
+  string ticker = 3; 
+  int32 precision = 4; 
+  string siteUrl = 5; 
+  string logoUrl = 6; 
+  int32 maxSupply = 7; 
+  int32 supply = 8; 
+  bool canChangeMaxSupply = 9; 
+  string owner = 10;
+}
+

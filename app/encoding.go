@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/umma-chain/core-umma/app/params" // TODO:
+	"github.com/umma-chain/umma-core/app/params" // TODO:
 
 	"github.com/cosmos/cosmos-sdk/std"
 )

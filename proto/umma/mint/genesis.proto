@@ -4,7 +4,7 @@ package juno.v11.mint;
 import "gogoproto/gogo.proto";
 import "umma/mint/mint.proto";
 
-option go_package = "github.com/umma-chain/core-umma/x/mint/types"; // TODO:
+option go_package = "github.com/umma-chain/umma-core/x/mint/types"; // TODO:
 
 // GenesisState defines the mint module's genesis state.
 message GenesisState {

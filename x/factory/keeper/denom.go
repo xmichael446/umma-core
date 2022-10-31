@@ -1,9 +1,9 @@
 package keeper
 
 import (
-	"github.com/umma-chain/core-umma/x/factory/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // SetDenom set a specific denom in the store from its index

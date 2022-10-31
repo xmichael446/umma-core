@@ -1,7 +1,7 @@
 syntax = "proto3";
 package juno.v11.factory;
 
-option go_package = "github.com/umma-chain/core-umma/x/factory/types";
+option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 
 message Denom {
   string denom = 1; 

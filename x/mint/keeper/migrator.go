@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	v2 "github.com/umma-chain/core-umma/x/mint/migrations/v2" // TODO:
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	v2 "github.com/umma-chain/umma-core/x/mint/migrations/v2" // TODO:
 )
 
 // Migrator is a struct for handling in-place state migrations.

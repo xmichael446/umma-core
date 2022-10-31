@@ -6,11 +6,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/umma-chain/core-umma/app"               // TODO:
-	"github.com/umma-chain/core-umma/x/mint/simulation" // TODO:
-	"github.com/umma-chain/core-umma/x/mint/types"      // TODO:
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/kv"
+	"github.com/umma-chain/umma-core/app"               // TODO:
+	"github.com/umma-chain/umma-core/x/mint/simulation" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types"      // TODO:
 )
 
 func TestDecodeStore(t *testing.T) {

@@ -14,7 +14,7 @@ import (
 	"github.com/gogo/protobuf/proto"
 	"github.com/stretchr/testify/suite"
 
-	minttypes "github.com/umma-chain/core-umma/x/mint/types" // TODO:
+	minttypes "github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 type IntegrationTestSuite struct {

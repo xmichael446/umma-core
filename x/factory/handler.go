@@ -3,10 +3,10 @@ package factory
 import (
 	"fmt"
 
-	"github.com/umma-chain/core-umma/x/factory/keeper"
-	"github.com/umma-chain/core-umma/x/factory/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/umma-chain/umma-core/x/factory/keeper"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // NewHandler ...

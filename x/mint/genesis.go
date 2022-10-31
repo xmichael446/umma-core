@@ -1,9 +1,9 @@
 package mint
 
 import (
-	"github.com/umma-chain/core-umma/x/mint/keeper" // TODO:
-	"github.com/umma-chain/core-umma/x/mint/types"  // TODO:
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/umma-chain/umma-core/x/mint/keeper" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types"  // TODO:
 )
 
 // InitGenesis new mint genesis

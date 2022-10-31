@@ -9,9 +9,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/umma-chain/core-umma/testutil/sample"
-	factorysimulation "github.com/umma-chain/core-umma/x/factory/simulation"
-	"github.com/umma-chain/core-umma/x/factory/types"
+	"github.com/umma-chain/umma-core/testutil/sample"
+	factorysimulation "github.com/umma-chain/umma-core/x/factory/simulation"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // avoid unused import issue

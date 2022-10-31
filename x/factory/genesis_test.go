@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	keepertest "github.com/umma-chain/core-umma/testutil/keeper"
-	"github.com/umma-chain/core-umma/testutil/nullify"
-	"github.com/umma-chain/core-umma/x/factory"
-	"github.com/umma-chain/core-umma/x/factory/types"
+	keepertest "github.com/umma-chain/umma-core/testutil/keeper"
+	"github.com/umma-chain/umma-core/testutil/nullify"
+	"github.com/umma-chain/umma-core/x/factory"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 func TestGenesis(t *testing.T) {

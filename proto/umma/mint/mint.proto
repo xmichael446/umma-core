@@ -4,7 +4,7 @@ package juno.v11.mint;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/umma-chain/core-umma/x/mint/types"; // TODO:
+option go_package = "github.com/umma-chain/umma-core/x/mint/types"; // TODO:
 
 // Minter represents the minting state.
 message Minter {

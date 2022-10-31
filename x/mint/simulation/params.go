@@ -8,8 +8,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 const (

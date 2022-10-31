@@ -7,9 +7,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	keep "github.com/umma-chain/core-umma/x/mint/keeper" // TODO:
-	"github.com/umma-chain/core-umma/x/mint/types"       // TODO:
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	keep "github.com/umma-chain/umma-core/x/mint/keeper" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types"       // TODO:
 
 	abci "github.com/tendermint/tendermint/abci/types"
 )

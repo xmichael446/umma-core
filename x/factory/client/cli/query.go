@@ -10,7 +10,7 @@ import (
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/umma-chain/core-umma/x/factory/types"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

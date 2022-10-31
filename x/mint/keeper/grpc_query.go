@@ -4,7 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 var _ types.QueryServer = Keeper{}

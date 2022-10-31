@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 
-	"github.com/umma-chain/core-umma/x/mint/client/cli"      // TODO:
-	minttypes "github.com/umma-chain/core-umma/x/mint/types" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/client/cli"      // TODO:
+	minttypes "github.com/umma-chain/umma-core/x/mint/types" // TODO:
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"

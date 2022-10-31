@@ -12,10 +12,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/umma-chain/core-umma/testutil/network"
-	"github.com/umma-chain/core-umma/testutil/nullify"
-	"github.com/umma-chain/core-umma/x/factory/client/cli"
-	"github.com/umma-chain/core-umma/x/factory/types"
+	"github.com/umma-chain/umma-core/testutil/network"
+	"github.com/umma-chain/umma-core/testutil/nullify"
+	"github.com/umma-chain/umma-core/x/factory/client/cli"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // Prevent strconv unused error

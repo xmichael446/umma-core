@@ -4,13 +4,13 @@ import (
 	"strconv"
 	"testing"
 
-	keepertest "github.com/umma-chain/core-umma/testutil/keeper"
+	keepertest "github.com/umma-chain/umma-core/testutil/keeper"
 	//keepertest "github.com/FounderDAO/juno/v11/testutil/keeper"
-	"github.com/umma-chain/core-umma/testutil/nullify"
-	"github.com/umma-chain/core-umma/x/factory/keeper"
-	"github.com/umma-chain/core-umma/x/factory/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+	"github.com/umma-chain/umma-core/testutil/nullify"
+	"github.com/umma-chain/umma-core/x/factory/keeper"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // Prevent strconv unused error

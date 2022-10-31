@@ -1,9 +1,9 @@
 package v2
 
 import (
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 const (

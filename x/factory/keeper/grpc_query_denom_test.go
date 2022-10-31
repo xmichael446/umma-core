@@ -10,9 +10,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	keepertest "github.com/umma-chain/core-umma/testutil/keeper"
-	"github.com/umma-chain/core-umma/testutil/nullify"
-	"github.com/umma-chain/core-umma/x/factory/types"
+	keepertest "github.com/umma-chain/umma-core/testutil/keeper"
+	"github.com/umma-chain/umma-core/testutil/nullify"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // Prevent strconv unused error

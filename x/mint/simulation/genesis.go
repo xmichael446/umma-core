@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 // Simulation parameter constants

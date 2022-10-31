@@ -8,11 +8,11 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	junoapp "github.com/umma-chain/core-umma/app" // TODO:
 	"github.com/cosmos/cosmos-sdk/simapp"
+	junoapp "github.com/umma-chain/umma-core/app" // TODO:
 
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 // returns context and an app with updated mint keeper

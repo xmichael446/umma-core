@@ -11,14 +11,14 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/umma-chain/core-umma/x/factory/client/cli"
-	"github.com/umma-chain/core-umma/x/factory/keeper"
-	"github.com/umma-chain/core-umma/x/factory/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/umma-chain/umma-core/x/factory/client/cli"
+	"github.com/umma-chain/umma-core/x/factory/keeper"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 var (

@@ -6,7 +6,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/umma-chain/core-umma/x/factory/types"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 //var (

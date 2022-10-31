@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/umma-chain/core-umma/x/factory/types"
 	"github.com/stretchr/testify/require"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {

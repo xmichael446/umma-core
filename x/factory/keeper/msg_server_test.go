@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	keepertest "github.com/umma-chain/core-umma/testutil/keeper"
-	"github.com/umma-chain/core-umma/x/factory/keeper"
-	"github.com/umma-chain/core-umma/x/factory/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	keepertest "github.com/umma-chain/umma-core/testutil/keeper"
+	"github.com/umma-chain/umma-core/x/factory/keeper"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {

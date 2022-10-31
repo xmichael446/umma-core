@@ -18,7 +18,7 @@ import (
 	tmrand "github.com/tendermint/tendermint/libs/rand"
 	tmdb "github.com/tendermint/tm-db"
 
-	"github.com/umma-chain/core-umma/app"
+	"github.com/umma-chain/umma-core/app"
 )
 
 type (

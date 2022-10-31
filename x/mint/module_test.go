@@ -9,7 +9,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/simapp"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 func TestItCreatesModuleAccountOnInitBlock(t *testing.T) {

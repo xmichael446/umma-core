@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "umma/mint/mint.proto";
 
-option go_package = "github.com/umma-chain/core-umma/x/mint/types"; // TODO:
+option go_package = "github.com/umma-chain/umma-core/x/mint/types"; // TODO:
 
 // Query provides defines the gRPC querier service.
 service Query {

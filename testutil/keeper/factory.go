@@ -13,8 +13,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
-	"github.com/umma-chain/core-umma/x/factory/keeper"
-	"github.com/umma-chain/core-umma/x/factory/types"
+	"github.com/umma-chain/umma-core/x/factory/keeper"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 func FactoryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {

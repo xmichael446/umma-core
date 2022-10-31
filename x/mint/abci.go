@@ -3,10 +3,10 @@ package mint
 import (
 	"time"
 
-	"github.com/umma-chain/core-umma/x/mint/keeper" // TODO:
-	"github.com/umma-chain/core-umma/x/mint/types"  // TODO:
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/umma-chain/umma-core/x/mint/keeper" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types"  // TODO:
 )
 
 // BeginBlocker mints new tokens for the previous block.

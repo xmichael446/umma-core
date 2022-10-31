@@ -27,7 +27,7 @@ else
   # change gas limit to mainnet value
   sed -i 's/"max_gas": "-1"/"max_gas": "'"$BLOCK_GAS_LIMIT"'"/' "$GENESIS_FILE"
   # change default keyring-backend to test
-  sed -i 's/keyring-backend = "os"/keyring-backend = "test"/' "$HOME"/.juno/config/client.toml
+  sed -i 's/keyring-backend = "os"/keyring-backend = "test"/' "$HOME"/.umma/config/client.toml
 fi
 
 APP_TOML_CONFIG="$HOME"/.umma/config/app.toml

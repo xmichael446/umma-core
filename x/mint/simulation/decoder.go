@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types/kv"
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 // NewDecodeStore returns a decoder function closure that unmarshals the KVPair's

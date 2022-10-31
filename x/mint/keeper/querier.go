@@ -3,10 +3,10 @@ package keeper
 import (
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/umma-chain/core-umma/x/mint/types" // TODO:
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/umma-chain/umma-core/x/mint/types" // TODO:
 )
 
 // NewQuerier returns a minting Querier handler.

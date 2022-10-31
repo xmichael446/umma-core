@@ -11,8 +11,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 
-	"github.com/umma-chain/core-umma/testutil/network"
-	"github.com/umma-chain/core-umma/x/factory/client/cli"
+	"github.com/umma-chain/umma-core/testutil/network"
+	"github.com/umma-chain/umma-core/x/factory/client/cli"
 )
 
 // Prevent strconv unused error

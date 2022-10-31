@@ -35,8 +35,8 @@ import (
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-	"github.com/umma-chain/core-umma/app"        // TODO:
-	"github.com/umma-chain/core-umma/app/params" // TODO:
+	"github.com/umma-chain/umma-core/app"        // TODO:
+	"github.com/umma-chain/umma-core/app/params" // TODO:
 )
 
 // NewRootCmd creates a new root command for ummad. It is called once in the

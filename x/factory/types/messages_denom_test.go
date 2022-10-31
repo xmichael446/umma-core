@@ -3,9 +3,9 @@ package types
 import (
 	"testing"
 
-	"github.com/umma-chain/core-umma/testutil/sample"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
+	"github.com/umma-chain/umma-core/testutil/sample"
 )
 
 func TestMsgCreateDenom_ValidateBasic(t *testing.T) {

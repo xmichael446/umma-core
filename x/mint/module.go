@@ -11,17 +11,17 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/umma-chain/core-umma/x/mint/client/cli"  // TODO:
-	"github.com/umma-chain/core-umma/x/mint/client/rest" // TODO:
-	"github.com/umma-chain/core-umma/x/mint/keeper"      // TODO:
-	"github.com/umma-chain/core-umma/x/mint/simulation"  // TODO:
-	"github.com/umma-chain/core-umma/x/mint/types"       // TODO:
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+	"github.com/umma-chain/umma-core/x/mint/client/cli"  // TODO:
+	"github.com/umma-chain/umma-core/x/mint/client/rest" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/keeper"      // TODO:
+	"github.com/umma-chain/umma-core/x/mint/simulation"  // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types"       // TODO:
 )
 
 var (

@@ -7,13 +7,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/umma-chain/core-umma/x/mint/simulation" // TODO:
-	"github.com/umma-chain/core-umma/x/mint/types"      // TODO:
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+	"github.com/umma-chain/umma-core/x/mint/simulation" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/types"      // TODO:
 )
 
 // TestRandomizedGenState tests the normal scenario of applying RandomizedGenState.

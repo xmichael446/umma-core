@@ -1,12 +1,12 @@
 package cli
 
 import (
-	"github.com/umma-chain/core-umma/x/factory/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 func CmdCreateDenom() *cobra.Command {

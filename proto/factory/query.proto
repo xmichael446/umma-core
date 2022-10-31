@@ -8,7 +8,7 @@ import "factory/params.proto";
 import "factory/denom.proto";
 // this line is used by starport scaffolding # 1
 
-option go_package = "github.com/umma-chain/core-umma/x/factory/types";
+option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 
 // Query defines the gRPC querier service.
 service Query {

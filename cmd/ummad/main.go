@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/umma-chain/core-umma/app" // TODO:
 	"github.com/cosmos/cosmos-sdk/server"
+	"github.com/umma-chain/umma-core/app" // TODO:
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 )

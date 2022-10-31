@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	"github.com/umma-chain/core-umma/x/factory/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 // GetParams get all parameters as types.Params

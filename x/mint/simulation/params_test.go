@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/umma-chain/core-umma/x/mint/simulation" // TODO:
+	"github.com/umma-chain/umma-core/x/mint/simulation" // TODO:
 )
 
 func TestParamChangest(t *testing.T) {

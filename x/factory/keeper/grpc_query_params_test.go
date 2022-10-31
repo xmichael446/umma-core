@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/umma-chain/core-umma/testutil/keeper"
-	"github.com/umma-chain/core-umma/x/factory/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+	testkeeper "github.com/umma-chain/umma-core/testutil/keeper"
+	"github.com/umma-chain/umma-core/x/factory/types"
 )
 
 func TestParamsQuery(t *testing.T) {

@@ -17,10 +17,6 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/umma-chain/core-umma/docs"                     // TODO:
-	"github.com/umma-chain/core-umma/x/mint"                   // TODO:
-	mintkeeper "github.com/umma-chain/core-umma/x/mint/keeper" // TODO:
-	minttypes "github.com/umma-chain/core-umma/x/mint/types"   // TODO:
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
@@ -95,6 +91,10 @@ import (
 	ibchost "github.com/cosmos/ibc-go/v3/modules/core/24-host"
 	ibckeeper "github.com/cosmos/ibc-go/v3/modules/core/keeper"
 	tmjson "github.com/tendermint/tendermint/libs/json"
+	"github.com/umma-chain/umma-core/docs"                     // TODO:
+	"github.com/umma-chain/umma-core/x/mint"                   // TODO:
+	mintkeeper "github.com/umma-chain/umma-core/x/mint/keeper" // TODO:
+	minttypes "github.com/umma-chain/umma-core/x/mint/types"   // TODO:
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
@@ -108,8 +108,8 @@ import (
 	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
 	icatypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/types"
 
-	encparams "github.com/umma-chain/core-umma/app/params"  // TODO:
-	upgrades "github.com/umma-chain/core-umma/app/upgrades" // TODO:
+	encparams "github.com/umma-chain/umma-core/app/params"  // TODO:
+	upgrades "github.com/umma-chain/umma-core/app/upgrades" // TODO:
 )
 
 const (

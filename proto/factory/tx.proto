@@ -4,7 +4,7 @@ package juno.v11.factory;
 import "factory/denom.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
-option go_package = "github.com/umma-chain/core-umma/x/factory/types";
+option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 
 // Msg defines the Msg service.
 service Msg {

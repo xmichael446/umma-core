@@ -6,7 +6,7 @@ exchanges.json
 umma_out.json
 bin
 .vscode
-
+cache/
 # emacs editor config
 \#*\#
 .\#*

@@ -52,7 +52,7 @@ if ! ummad keys show validator $KEYRING; then
 
   # (optionally) add a few more genesis accounts
   for addr in "$@"; do
-    echo $addr
+    echo "$addr"
     ummad add-genesis-account "$addr" "1000000000$STAKE,1000000000$FEE"
   done
 

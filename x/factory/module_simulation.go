@@ -36,6 +36,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgDeleteDenom int = 100
 
+	opWeightMsgMintAndSendTokens = "op_weight_msg_mint_and_send_tokens"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMintAndSendTokens int = 100
+
+	opWeightMsgUpdateOwner = "op_weight_msg_update_owner"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateOwner int = 100
+
+	opWeightMsgBurnTokens = "op_weight_msg_burn_tokens"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgBurnTokens int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -111,6 +123,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDeleteDenom,
 		factorysimulation.SimulateMsgDeleteDenom(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgMintAndSendTokens int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMintAndSendTokens, &weightMsgMintAndSendTokens, nil,
+		func(_ *rand.Rand) {
+			weightMsgMintAndSendTokens = defaultWeightMsgMintAndSendTokens
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMintAndSendTokens,
+		factorysimulation.SimulateMsgMintAndSendTokens(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateOwner int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateOwner, &weightMsgUpdateOwner, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateOwner = defaultWeightMsgUpdateOwner
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateOwner,
+		factorysimulation.SimulateMsgUpdateOwner(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgBurnTokens int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgBurnTokens, &weightMsgBurnTokens, nil,
+		func(_ *rand.Rand) {
+			weightMsgBurnTokens = defaultWeightMsgBurnTokens
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgBurnTokens,
+		factorysimulation.SimulateMsgBurnTokens(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

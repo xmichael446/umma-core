@@ -22,7 +22,8 @@ import CosmosIbcGoIbcCoreConnectionV1 from './cosmos/ibc-go/ibc.core.connection.
 import CosmosIbcGoIbcCorePortV1 from './cosmos/ibc-go/ibc.core.port.v1'
 import JunoV11JunoV11Factory from './juno/v11/juno.v11.factory'
 import JunoV11JunoV11Mint from './juno/v11/juno.v11.mint'
-import UmmaChainCoreUmmaJunoV11Mint from './umma-chain/umma-core/juno.v11.mint'
+import UmmaChainCoreUmmaJunoV11Mint from './umma-chain/core-umma/juno.v11.mint'
+import UmmaChainUmmaCoreJunoV11Mint from './umma-chain/umma-core/juno.v11.mint'
 
 
 export default { 
@@ -49,6 +50,7 @@ export default {
   JunoV11JunoV11Factory: load(JunoV11JunoV11Factory, 'juno.v11.factory'),
   JunoV11JunoV11Mint: load(JunoV11JunoV11Mint, 'juno.v11.mint'),
   UmmaChainCoreUmmaJunoV11Mint: load(UmmaChainCoreUmmaJunoV11Mint, 'juno.v11.mint'),
+  UmmaChainUmmaCoreJunoV11Mint: load(UmmaChainUmmaCoreJunoV11Mint, 'juno.v11.mint'),
   
 }
 

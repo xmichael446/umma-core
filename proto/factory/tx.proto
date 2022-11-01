@@ -10,7 +10,10 @@ option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 service Msg {
   rpc CreateDenom(MsgCreateDenom) returns (MsgCreateDenomResponse);
   rpc UpdateDenom(MsgUpdateDenom) returns (MsgUpdateDenomResponse);
-  // this line is used by starport scaffolding # proto/tx/rpc
+  rpc MintAndSendTokens(MsgMintAndSendTokens) returns (MsgMintAndSendTokensResponse);
+  rpc UpdateOwner(MsgUpdateOwner) returns (MsgUpdateOwnerResponse);
+  rpc BurnTokens(MsgBurnTokens) returns (MsgBurnTokensResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
 }
 
 message MsgCreateDenom {
@@ -40,5 +43,33 @@ message MsgUpdateDenom {
 }
 message MsgUpdateDenomResponse {}
 
+
+message MsgMintAndSendTokens {
+  string owner = 1;
+  string denom = 2;
+  int32 amount = 3;
+  string recipient = 4;
+}
+
+message MsgMintAndSendTokensResponse {
+}
+
+message MsgUpdateOwner {
+  string owner = 1;
+  string denom = 2;
+  string newOwner = 3;
+}
+
+message MsgUpdateOwnerResponse {
+}
+
+message MsgBurnTokens {
+  string owner = 1;
+  string denom = 2;
+  int32 amount = 3;
+}
+
+message MsgBurnTokensResponse {
+}
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -72,7 +72,6 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d h1:nalkkPQcITbvhmL4+C4cKA87NW0tfm3Kl9VXRoPywFg=
 github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d/go.mod h1:URdX5+vg25ts3aCh8H5IFZybJYKWhJHYMTnf+ULtoC4=
-github.com/CosmWasm/wasmd v0.28.0/go.mod h1:+YFMYloXHkrMKYoIGKMzmbEtH0is99ZWl2xgh/U2Dic=
 github.com/CosmWasm/wasmd v0.29.1 h1:uagvdFfNYzkxUurKmVooHqkPqWo0dF+KvAzgUt4aOn0=
 github.com/CosmWasm/wasmd v0.29.1/go.mod h1:agYHzj3R0O+UExLHlXLuEfLqhIrCC+pF5ouAmbe9/68=
 github.com/CosmWasm/wasmvm v1.1.1 h1:0xtdrmmsP9fibe+x42WcMkp5aQ738BICgcH3FNVLzm4=
@@ -340,7 +339,6 @@ github.com/cosmos/btcutil v1.0.4 h1:n7C2ngKXo7UC9gNyMNLbzqz7Asuf+7Qv4gnX/rOdQ44=
 github.com/cosmos/btcutil v1.0.4/go.mod h1:Ffqc8Hn6TJUdDgHBwIZLtrLQC1KdJ9jGJl/TvgUaxbU=
 github.com/cosmos/cosmos-proto v1.0.0-alpha7 h1:yqYUOHF2jopwZh4dVQp3xgqwftE5/2hkrwIV6vkUbO0=
 github.com/cosmos/cosmos-proto v1.0.0-alpha7/go.mod h1:dosO4pSAbJF8zWCzCoTWP7nNsjcvSUBQmniFxDg5daw=
-github.com/cosmos/cosmos-sdk v0.45.6/go.mod h1:bPeeVMEtVvH3y3xAGHVbK+/CZlpaazzh77hG8ZrcJpI=
 github.com/cosmos/cosmos-sdk v0.45.9 h1:Z4s1EZL/mfM8uSSZr8WmyEbWp4hqbWVI5sAIFR432KY=
 github.com/cosmos/cosmos-sdk v0.45.9/go.mod h1:Z5M4TX7PsHNHlF/1XanI2DIpORQ+Q/st7oaeufEjnvU=
 github.com/cosmos/cosmos-sdk/ics23/go v0.8.0 h1:iKclrn3YEOwk4jQHT2ulgzuXyxmzmPczUalMwW4XH9k=
@@ -352,10 +350,8 @@ github.com/cosmos/gogoproto v1.4.2 h1:UeGRcmFW41l0G0MiefWhkPEVEwvu78SZsHBvI78dAY
 github.com/cosmos/gogoproto v1.4.2/go.mod h1:cLxOsn1ljAHSV527CHOtaIP91kK6cCrZETRBrkzItWU=
 github.com/cosmos/gorocksdb v1.2.0 h1:d0l3jJG8M4hBouIZq0mDUHZ+zjOx044J3nGRskwTb4Y=
 github.com/cosmos/gorocksdb v1.2.0/go.mod h1:aaKvKItm514hKfNJpUJXnnOWeBnk2GL4+Qw9NHizILw=
-github.com/cosmos/iavl v0.19.0/go.mod h1:l5h9pAB3m5fihB3pXVgwYqdY8aBsMagqz7T0MUjxZeA=
 github.com/cosmos/iavl v0.19.3 h1:cESO0OwTTxQm5rmyESKW+zESheDUYI7CcZDWWDwnuxg=
 github.com/cosmos/iavl v0.19.3/go.mod h1:X9PKD3J0iFxdmgNLa7b2LYWdsGd90ToV5cAONApkEPw=
-github.com/cosmos/ibc-go/v3 v3.0.0/go.mod h1:Mb+1NXiPOLd+CPFlOC6BKeAUaxXlhuWenMmRiUiSmwY=
 github.com/cosmos/ibc-go/v3 v3.3.0 h1:r8gYUvQreMQrf4R5RgedK9gcbjLk4uE2q6fuZGjf4n0=
 github.com/cosmos/ibc-go/v3 v3.3.0/go.mod h1:VUWLHw0C3USmTQZnTdkuXXdUdLbW8zsK3lV1Ieposog=
 github.com/cosmos/interchain-accounts v0.1.0 h1:QmuwNsf1Hxl3P5GSGt7Z+JeuHPiZw4Z34R/038P5T6s=
@@ -676,8 +672,6 @@ github.com/grpc-ecosystem/grpc-gateway v1.9.0/go.mod h1:vNeuVxBJEsws4ogUvrchl83t
 github.com/grpc-ecosystem/grpc-gateway v1.9.5/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0 h1:gmcG1KaJ57LophUzW0Hy8NmPhnMZb4M0+kPpLofRdBo=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
-github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0 h1:kr3j8iIMR4ywO/O0rvksXaJvauGGCMg2zAZIiNZ9uIQ=
-github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0/go.mod h1:ummNFgdgLhhX7aIiy35vVmQNS0rWXknfPE0qe6fmFXg=
 github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c h1:6rhixN/i8ZofjG1Y75iExal34USq5p+wiN1tpie8IrU=
 github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c/go.mod h1:NMPJylDgVpX0MLRlPy15sqSwOFv/U1GZ2m21JhFfek0=
 github.com/gtank/merlin v0.1.1-0.20191105220539-8318aed1a79f/go.mod h1:T86dnYJhcGOh5BjZFCJWTDeTK7XW8uE+E21Cy/bIQ+s=

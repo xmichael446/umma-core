@@ -23,7 +23,7 @@ ummad init test
 # Get Genesis
 wget https://download.dimi.sh/juno-phoenix2-genesis.tar.gz # TODO:
 tar -xvf juno-phoenix2-genesis.tar.gz
-mv juno-phoenix2-genesis.json "$HOME/.juno/config/genesis.json"
+mv juno-phoenix2-genesis.json "$HOME/.umma/config/genesis.json"
 
 
 
@@ -39,15 +39,15 @@ echo "trust_height: $BLOCK_HEIGHT"
 echo "trust_hash: $TRUST_HASH"
 
 # Export state sync variables. TODO:
-export JUNOD_STATESYNC_ENABLE=true
-export JUNOD_P2P_MAX_NUM_OUTBOUND_PEERS=200
-export JUNOD_STATESYNC_RPC_SERVERS="https://rpc-juno-ia.notional.ventures:443,https://juno-rpc.polkachu.com:443"
-export JUNOD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
-export JUNOD_STATESYNC_TRUST_HASH=$TRUST_HASH
+export UMMAD_STATESYNC_ENABLE=true
+export UMMAD_P2P_MAX_NUM_OUTBOUND_PEERS=200
+export UMMAD_STATESYNC_RPC_SERVERS="https://rpc-juno-ia.notional.ventures:443,https://juno-rpc.polkachu.com:443"
+export UMMAD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
+export UMMAD_STATESYNC_TRUST_HASH=$TRUST_HASH
 
 # Fetch and set list of seeds from chain registry.
-JUNOD_P2P_SEEDS="$(curl -s https://raw.githubusercontent.com/cosmos/chain-registry/master/juno/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')"
-export JUNOD_P2P_SEEDS
+UMMAD_P2P_SEEDS="$(curl -s https://raw.githubusercontent.com/cosmos/chain-registry/master/juno/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')"
+export UMMAD_P2P_SEEDS
 
 # Start chain.
 ummad start --x-crisis-skip-assert-invariants --db_backend pebbledb

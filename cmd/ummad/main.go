@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/umma-chain/umma-core/app" // TODO:
+	"github.com/umma-chain/umma-core/app"
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 )

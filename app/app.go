@@ -1,6 +1,9 @@
 package app
 
 import (
+	factorymodule "github.com/umma-chain/umma-core/x/factory"
+	factorymodulekeeper "github.com/umma-chain/umma-core/x/factory/keeper"
+	factorymoduletypes "github.com/umma-chain/umma-core/x/factory/types"
 	"io"
 	"net/http"
 	"os"
@@ -110,6 +113,7 @@ import (
 
 	encparams "github.com/umma-chain/umma-core/app/params"  // TODO:
 	upgrades "github.com/umma-chain/umma-core/app/upgrades" // TODO:
+	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
 const (
@@ -122,10 +126,10 @@ var (
 	NodeDir      = ".umma"
 	Bech32Prefix = "umma"
 
-	// If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
+	// ProposalsEnabled If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
 	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/wasm proposals.
 	ProposalsEnabled = "true"
-	// If set to non-empty string it must be comma-separated list of values that are all a subset
+	// EnableSpecificProposals If set to non-empty string it must be comma-separated list of values that are all a subset
 	// of "EnableAllProposals" (takes precedence over ProposalsEnabled)
 	// https://github.com/CosmWasm/wasmd/blob/02a54d33ff2c064f3539ae12d75d027d9c665f05/x/wasm/internal/types/proposal.go#L28-L34
 	EnableSpecificProposals = ""
@@ -224,6 +228,7 @@ var (
 		authzmodule.AppModuleBasic{},
 		wasm.AppModuleBasic{},
 		ica.AppModuleBasic{},
+		factorymodule.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -237,6 +242,7 @@ var (
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
 		icatypes.ModuleName:            nil,
 		wasm.ModuleName:                {authtypes.Burner},
+		factorymoduletypes.ModuleName:  {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 	}
 )
 
@@ -288,6 +294,7 @@ type App struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+	FactoryKeeper    factorymodulekeeper.Keeper
 	wasmKeeper       wasm.Keeper
 	scopedWasmKeeper capabilitykeeper.ScopedKeeper
 
@@ -326,7 +333,7 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		authzkeeper.StoreKey, feegrant.StoreKey, icahosttypes.StoreKey,
-		wasm.StoreKey,
+		wasm.StoreKey, factorymoduletypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -478,7 +485,16 @@ func New(
 	)
 
 	ibcRouter := porttypes.NewRouter()
+	app.FactoryKeeper = *factorymodulekeeper.NewKeeper(
+		appCodec,
+		keys[factorymoduletypes.StoreKey],
+		keys[factorymoduletypes.MemStoreKey],
+		app.GetSubspace(factorymoduletypes.ModuleName),
 
+		app.AccountKeeper,
+		app.BankKeeper,
+	)
+	factoryModule := factorymodule.NewAppModule(appCodec, app.FactoryKeeper, app.AccountKeeper, app.BankKeeper)
 	// register wasm gov proposal types
 	// The gov proposal types can be individually enabled
 	if len(enabledProposals) != 0 {
@@ -528,6 +544,7 @@ func New(
 		authzmodule.NewAppModule(appCodec, app.AuthzKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),
 		transferModule,
 		icaModule,
+		factoryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 		wasm.NewAppModule(appCodec, &app.wasmKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper),
 	)
@@ -558,6 +575,7 @@ func New(
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
 		wasm.ModuleName,
+		factorymoduletypes.ModuleName,
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -582,6 +600,7 @@ func New(
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
 		wasm.ModuleName,
+		factorymoduletypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -611,6 +630,7 @@ func New(
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
 		wasm.ModuleName,
+		factorymoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -712,6 +732,7 @@ func New(
 		wasm.NewAppModule(appCodec, &app.wasmKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
+		factoryModule,
 	)
 
 	app.sm.RegisterStoreDecoders()
@@ -869,7 +890,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(wasm.ModuleName)
-
+	paramsKeeper.Subspace(factorymoduletypes.ModuleName)
 	return paramsKeeper
 }
 

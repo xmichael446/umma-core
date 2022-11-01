@@ -16,7 +16,7 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 )
 
-// AddGenesisAccountCmd returns add-genesis-account cobra Command.
+// AddGenesisIcaCmd AddGenesisAccountCmd returns add-genesis-account cobra Command.
 func AddGenesisIcaCmd(defaultNodeHome string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "add-ica-config",

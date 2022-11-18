@@ -1,5 +1,5 @@
 syntax = "proto3";
-package juno.v11.factory;
+package ummachain.ummacore.factory;
 
 option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 

@@ -1,6 +1,8 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
+import CosmWasmWasmdCosmwasmWasmV1 from './CosmWasm/wasmd/cosmwasm.wasm.v1'
 import CosmosCosmosSdkCosmosAuthV1Beta1 from './cosmos/cosmos-sdk/cosmos.auth.v1beta1'
+import CosmosCosmosSdkCosmosAuthzV1Beta1 from './cosmos/cosmos-sdk/cosmos.authz.v1beta1'
 import CosmosCosmosSdkCosmosBankV1Beta1 from './cosmos/cosmos-sdk/cosmos.bank.v1beta1'
 import CosmosCosmosSdkCosmosBaseTendermintV1Beta1 from './cosmos/cosmos-sdk/cosmos.base.tendermint.v1beta1'
 import CosmosCosmosSdkCosmosCrisisV1Beta1 from './cosmos/cosmos-sdk/cosmos.crisis.v1beta1'
@@ -20,14 +22,25 @@ import CosmosIbcGoIbcCoreChannelV1 from './cosmos/ibc-go/ibc.core.channel.v1'
 import CosmosIbcGoIbcCoreClientV1 from './cosmos/ibc-go/ibc.core.client.v1'
 import CosmosIbcGoIbcCoreConnectionV1 from './cosmos/ibc-go/ibc.core.connection.v1'
 import CosmosIbcGoIbcCorePortV1 from './cosmos/ibc-go/ibc.core.port.v1'
-import JunoV11JunoV11Factory from './juno/v11/juno.v11.factory'
-import JunoV11JunoV11Mint from './juno/v11/juno.v11.mint'
-import UmmaChainCoreUmmaJunoV11Mint from './umma-chain/core-umma/juno.v11.mint'
-import UmmaChainUmmaCoreJunoV11Mint from './umma-chain/umma-core/juno.v11.mint'
+import IbcGoV3IbcApplicationsInterchainAccountsControllerV1 from './ibc-go/v3/ibc.applications.interchain_accounts.controller.v1'
+import IbcGoV3IbcApplicationsInterchainAccountsHostV1 from './ibc-go/v3/ibc.applications.interchain_accounts.host.v1'
+import IbcGoV3IbcApplicationsTransferV1 from './ibc-go/v3/ibc.applications.transfer.v1'
+import IbcGoV3IbcCoreChannelV1 from './ibc-go/v3/ibc.core.channel.v1'
+import IbcGoV3IbcCoreClientV1 from './ibc-go/v3/ibc.core.client.v1'
+import IbcGoV3IbcCoreConnectionV1 from './ibc-go/v3/ibc.core.connection.v1'
+import UmmaChainUmmaCoreJunoV11Factory from './umma-chain/umma-core/ummachain.ummacore.factory'
+import UmmaChainUmmaCoreJunoV11Mint from './umma-chain/umma-core/ummachain.ummacore.mint'
+import UmmaChainUmmaCoreUmmaCoreFactory from './umma-chain/umma-core/ummachain.ummacore.factory'
+import UmmaChainUmmaCoreUmmaCoreMint from './umma-chain/umma-core/ummachain.ummacore.mint'
+import UmmaChainUmmaCoreUmmachainUmmacoreFactory from './umma-chain/umma-core/ummachain.ummacore.factory'
+import UmmaChainUmmaCoreUmmachainUmmacoreMint from './umma-chain/umma-core/ummachain.ummacore.mint'
+import UmmaChainUmmaCoreUmmachainUmmacoreNameservice from './umma-chain/umma-core/ummachain.ummacore.nameservice'
 
 
 export default { 
+  CosmWasmWasmdCosmwasmWasmV1: load(CosmWasmWasmdCosmwasmWasmV1, 'cosmwasm.wasm.v1'),
   CosmosCosmosSdkCosmosAuthV1Beta1: load(CosmosCosmosSdkCosmosAuthV1Beta1, 'cosmos.auth.v1beta1'),
+  CosmosCosmosSdkCosmosAuthzV1Beta1: load(CosmosCosmosSdkCosmosAuthzV1Beta1, 'cosmos.authz.v1beta1'),
   CosmosCosmosSdkCosmosBankV1Beta1: load(CosmosCosmosSdkCosmosBankV1Beta1, 'cosmos.bank.v1beta1'),
   CosmosCosmosSdkCosmosBaseTendermintV1Beta1: load(CosmosCosmosSdkCosmosBaseTendermintV1Beta1, 'cosmos.base.tendermint.v1beta1'),
   CosmosCosmosSdkCosmosCrisisV1Beta1: load(CosmosCosmosSdkCosmosCrisisV1Beta1, 'cosmos.crisis.v1beta1'),
@@ -47,10 +60,23 @@ export default {
   CosmosIbcGoIbcCoreClientV1: load(CosmosIbcGoIbcCoreClientV1, 'ibc.core.client.v1'),
   CosmosIbcGoIbcCoreConnectionV1: load(CosmosIbcGoIbcCoreConnectionV1, 'ibc.core.connection.v1'),
   CosmosIbcGoIbcCorePortV1: load(CosmosIbcGoIbcCorePortV1, 'ibc.core.port.v1'),
+  IbcGoV3IbcApplicationsInterchainAccountsControllerV1: load(IbcGoV3IbcApplicationsInterchainAccountsControllerV1, 'ibc.applications.interchain_accounts.controller.v1'),
+  IbcGoV3IbcApplicationsInterchainAccountsHostV1: load(IbcGoV3IbcApplicationsInterchainAccountsHostV1, 'ibc.applications.interchain_accounts.host.v1'),
+  IbcGoV3IbcApplicationsTransferV1: load(IbcGoV3IbcApplicationsTransferV1, 'ibc.applications.transfer.v1'),
+  IbcGoV3IbcCoreChannelV1: load(IbcGoV3IbcCoreChannelV1, 'ibc.core.channel.v1'),
+  IbcGoV3IbcCoreClientV1: load(IbcGoV3IbcCoreClientV1, 'ibc.core.client.v1'),
+  IbcGoV3IbcCoreConnectionV1: load(IbcGoV3IbcCoreConnectionV1, 'ibc.core.connection.v1'),
   JunoV11JunoV11Factory: load(JunoV11JunoV11Factory, 'juno.v11.factory'),
   JunoV11JunoV11Mint: load(JunoV11JunoV11Mint, 'juno.v11.mint'),
-  UmmaChainCoreUmmaJunoV11Mint: load(UmmaChainCoreUmmaJunoV11Mint, 'juno.v11.mint'),
-  UmmaChainUmmaCoreJunoV11Mint: load(UmmaChainUmmaCoreJunoV11Mint, 'juno.v11.mint'),
+  UmmaChainCoreUmmaJunoV11Mint: load(UmmaChainCoreUmmaJunoV11Mint, 'ummachain.ummacore.mint'),
+  UmmaChainUmmaCoreJunoV11Factory: load(UmmaChainUmmaCoreJunoV11Factory, 'ummachain.ummacore.factory'),
+  UmmaChainUmmaCoreJunoV11Mint: load(UmmaChainUmmaCoreJunoV11Mint, 'ummachain.ummacore.mint'),
+  UmmaChainUmmaCoreUmmaCoreFactory: load(UmmaChainUmmaCoreUmmaCoreFactory, 'umma_core.factory'),
+  UmmaChainUmmaCoreUmmaCoreMint: load(UmmaChainUmmaCoreUmmaCoreMint, 'umma_core.mint'),
+  UmmaChainUmmaCoreUmmachainUmmacoreDomain: load(UmmaChainUmmaCoreUmmachainUmmacoreDomain, 'ummachain.ummacore.domain'),
+  UmmaChainUmmaCoreUmmachainUmmacoreFactory: load(UmmaChainUmmaCoreUmmachainUmmacoreFactory, 'ummachain.ummacore.factory'),
+  UmmaChainUmmaCoreUmmachainUmmacoreMint: load(UmmaChainUmmaCoreUmmachainUmmacoreMint, 'ummachain.ummacore.mint'),
+  UmmaChainUmmaCoreUmmachainUmmacoreNameservice: load(UmmaChainUmmaCoreUmmachainUmmacoreNameservice, 'ummachain.ummacore.nameservice'),
   
 }
 

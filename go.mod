@@ -1,4 +1,4 @@
-module github.com/umma-chain/umma-core //umma-chain/CosmosContracts/umma/v1/
+module github.com/umma-chain/umma-core
 
 go 1.18
 

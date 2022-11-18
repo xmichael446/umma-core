@@ -1,5 +1,5 @@
 syntax = "proto3";
-package juno.v11.mint;
+package ummachain.ummacore.mint;
 
 import "gogoproto/gogo.proto";
 import "umma/mint/mint.proto";

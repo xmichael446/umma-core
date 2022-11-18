@@ -1,0 +1,12 @@
+syntax = "proto3";
+package ummachain.ummacore.nameservice;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/umma-chain/umma-core/x/nameservice/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}

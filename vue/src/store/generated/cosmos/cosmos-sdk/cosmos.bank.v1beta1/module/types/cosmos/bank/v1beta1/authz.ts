@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Coin } from "../../base/v1beta1/coin";
+// @ts-ignore
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.bank.v1beta1";

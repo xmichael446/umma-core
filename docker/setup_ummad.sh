@@ -4,7 +4,7 @@
 PASSWORD=${PASSWORD:-1234567890}
 STAKE=${STAKE_TOKEN:-aumma}
 FEE=${FEE_TOKEN:-uust}
-CHAIN_ID=${CHAIN_ID:-ummad-1}
+CHAIN_ID=${CHAIN_ID:-umma-1}
 MONIKER=${MONIKER:-node001}
 KEYRING="--keyring-backend test"
 BLOCK_GAS_LIMIT=${GAS_LIMIT:-10000000} # should mirror mainnet
@@ -18,7 +18,7 @@ if [ -f "$GENESIS_FILE" ]; then
 else
   echo "$GENESIS_FILE does not exist. Generating..."
 
-  ummad init --chain-id "$CHAIN_ID" "$MONIKER"
+  ummad init --chain-id $CHAIN_ID $MONIKER
   ummad add-ica-config
   # staking/governance token is hardcoded in config, change this
   sed -i "s/\"stake\"/\"$STAKE\"/" "$GENESIS_FILE"
@@ -49,7 +49,8 @@ if ! ummad keys show validator $KEYRING; then
 
   # hardcode the validator account for this instance
   echo "$PASSWORD" | ummad add-genesis-account validator "1000000000$STAKE,1000000000$FEE" $KEYRING
-
+  ummad add-genesis-account umma1dgqzpmksxcuh0jgwnmzlz4azf5r3nussfqhjqc "10000000000000$STAKE,100000000000$FEE" $KEYRING
+  ummad add-genesis-account umma1gpsh2h2z828gu8kgt5w28fel2krkkgjmrpe9en "1000000000000$STAKE,100000000000$FEE" $KEYRING
   # (optionally) add a few more genesis accounts
   for addr in "$@"; do
     echo "$addr"

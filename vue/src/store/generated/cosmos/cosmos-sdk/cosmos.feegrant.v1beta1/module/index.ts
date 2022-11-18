@@ -1,7 +1,10 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
+// @ts-ignore
 import { StdFee } from "@cosmjs/launchpad";
+// @ts-ignore
 import { SigningStargateClient } from "@cosmjs/stargate";
+// @ts-ignore
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgRevokeAllowance } from "./types/cosmos/feegrant/v1beta1/tx";

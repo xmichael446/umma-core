@@ -321,11 +321,11 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"juno", "v11", "factory", "params"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"umma", "factory", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Denom_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"juno", "v11", "factory", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Denom_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 2}, []string{"umma", "factory", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_DenomAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"juno", "v11", "factory", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_DenomAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"umma", "factory", "denom"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

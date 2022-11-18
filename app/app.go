@@ -1,9 +1,6 @@
 package app
 
 import (
-	factorymodule "github.com/umma-chain/umma-core/x/factory"
-	factorymodulekeeper "github.com/umma-chain/umma-core/x/factory/keeper"
-	factorymoduletypes "github.com/umma-chain/umma-core/x/factory/types"
 	"io"
 	"net/http"
 	"os"
@@ -94,14 +91,23 @@ import (
 	ibchost "github.com/cosmos/ibc-go/v3/modules/core/24-host"
 	ibckeeper "github.com/cosmos/ibc-go/v3/modules/core/keeper"
 	tmjson "github.com/tendermint/tendermint/libs/json"
-	"github.com/umma-chain/umma-core/docs"                     // TODO:
-	"github.com/umma-chain/umma-core/x/mint"                   // TODO:
-	mintkeeper "github.com/umma-chain/umma-core/x/mint/keeper" // TODO:
-	minttypes "github.com/umma-chain/umma-core/x/mint/types"   // TODO:
+	"github.com/umma-chain/umma-core/docs"
+	"github.com/umma-chain/umma-core/x/mint"
+	mintkeeper "github.com/umma-chain/umma-core/x/mint/keeper"
+	minttypes "github.com/umma-chain/umma-core/x/mint/types"
 
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+
+	factorymodule "github.com/umma-chain/umma-core/x/factory"
+	factorymodulekeeper "github.com/umma-chain/umma-core/x/factory/keeper"
+	factorymoduletypes "github.com/umma-chain/umma-core/x/factory/types"
+
+	nameservicemodule "github.com/umma-chain/umma-core/x/nameservice"
+	nameservicemodulekeeper "github.com/umma-chain/umma-core/x/nameservice/keeper"
+	nameservicemoduletypes "github.com/umma-chain/umma-core/x/nameservice/types"
+
 	"github.com/prometheus/client_golang/prometheus"
 
 	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
@@ -229,20 +235,22 @@ var (
 		wasm.AppModuleBasic{},
 		ica.AppModuleBasic{},
 		factorymodule.AppModuleBasic{},
+		nameservicemodule.AppModuleBasic{},
 	)
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:     nil,
-		distrtypes.ModuleName:          nil,
-		minttypes.ModuleName:           {authtypes.Minter},
-		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:            {authtypes.Burner},
-		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		icatypes.ModuleName:            nil,
-		wasm.ModuleName:                {authtypes.Burner},
-		factorymoduletypes.ModuleName:  {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		authtypes.FeeCollectorName:        nil,
+		distrtypes.ModuleName:             nil,
+		minttypes.ModuleName:              {authtypes.Minter},
+		stakingtypes.BondedPoolName:       {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName:    {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:               {authtypes.Burner},
+		ibctransfertypes.ModuleName:       {authtypes.Minter, authtypes.Burner},
+		icatypes.ModuleName:               nil,
+		wasm.ModuleName:                   {authtypes.Burner},
+		factorymoduletypes.ModuleName:     {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		nameservicemoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 	}
 )
 
@@ -294,9 +302,10 @@ type App struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
-	FactoryKeeper    factorymodulekeeper.Keeper
-	wasmKeeper       wasm.Keeper
-	scopedWasmKeeper capabilitykeeper.ScopedKeeper
+	FactoryKeeper     factorymodulekeeper.Keeper
+	wasmKeeper        wasm.Keeper
+	NameserviceKeeper nameservicemodulekeeper.Keeper
+	scopedWasmKeeper  capabilitykeeper.ScopedKeeper
 
 	// the module manager
 	mm *module.Manager
@@ -334,6 +343,7 @@ func New(
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		authzkeeper.StoreKey, feegrant.StoreKey, icahosttypes.StoreKey,
 		wasm.StoreKey, factorymoduletypes.StoreKey,
+		nameservicemoduletypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -495,6 +505,16 @@ func New(
 		app.BankKeeper,
 	)
 	factoryModule := factorymodule.NewAppModule(appCodec, app.FactoryKeeper, app.AccountKeeper, app.BankKeeper)
+
+	app.NameserviceKeeper = *nameservicemodulekeeper.NewKeeper(
+		appCodec,
+		keys[nameservicemoduletypes.StoreKey],
+		keys[nameservicemoduletypes.MemStoreKey],
+		app.GetSubspace(nameservicemoduletypes.ModuleName),
+
+		app.BankKeeper,
+	)
+	nameserviceModule := nameservicemodule.NewAppModule(appCodec, app.NameserviceKeeper, app.AccountKeeper, app.BankKeeper)
 	// register wasm gov proposal types
 	// The gov proposal types can be individually enabled
 	if len(enabledProposals) != 0 {
@@ -545,6 +565,8 @@ func New(
 		transferModule,
 		icaModule,
 		factoryModule,
+		nameserviceModule,
+
 		// this line is used by starport scaffolding # stargate/app/appModule
 		wasm.NewAppModule(appCodec, &app.wasmKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper),
 	)
@@ -576,6 +598,7 @@ func New(
 		icatypes.ModuleName,
 		wasm.ModuleName,
 		factorymoduletypes.ModuleName,
+		nameservicemoduletypes.ModuleName,
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -601,6 +624,7 @@ func New(
 		icatypes.ModuleName,
 		wasm.ModuleName,
 		factorymoduletypes.ModuleName,
+		nameservicemoduletypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -631,6 +655,7 @@ func New(
 		icatypes.ModuleName,
 		wasm.ModuleName,
 		factorymoduletypes.ModuleName,
+		nameservicemoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -733,6 +758,7 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		factoryModule,
+		nameserviceModule,
 	)
 
 	app.sm.RegisterStoreDecoders()
@@ -891,6 +917,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(wasm.ModuleName)
 	paramsKeeper.Subspace(factorymoduletypes.ModuleName)
+	paramsKeeper.Subspace(nameservicemoduletypes.ModuleName)
 	return paramsKeeper
 }
 

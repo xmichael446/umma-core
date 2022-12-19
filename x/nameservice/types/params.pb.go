@@ -60,7 +60,7 @@ func (m *Params) XXX_DiscardUnknown() {
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*Params)(nil), "darxan.nameservice.nameservice.Params")
+	proto.RegisterType((*Params)(nil), "ummachain.ummacore.nameservice.Params")
 }
 
 func init() { proto.RegisterFile("nameservice/params.proto", fileDescriptor_9347ee334d773820) }

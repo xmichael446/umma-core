@@ -77,7 +77,7 @@ func (m *GenesisState) GetWhoisList() []Whois {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "darxan.nameservice.nameservice.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "ummachain.ummacore.nameservice.GenesisState")
 }
 
 func init() { proto.RegisterFile("nameservice/genesis.proto", fileDescriptor_d62c96c480629e8a) }

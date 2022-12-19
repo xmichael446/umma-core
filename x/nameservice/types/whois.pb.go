@@ -99,7 +99,7 @@ func (m *Whois) GetOwner() string {
 }
 
 func init() {
-	proto.RegisterType((*Whois)(nil), "darxan.nameservice.nameservice.Whois")
+	proto.RegisterType((*Whois)(nil), "ummachain.ummacore.nameservice.Whois")
 }
 
 func init() { proto.RegisterFile("nameservice/whois.proto", fileDescriptor_ffb1e5b15fe01e48) }

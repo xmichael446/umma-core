@@ -38,9 +38,9 @@ ignite n chain list
 Launch Id 	Chain Id 	Source ...
 6 	        planet-1 	https://github.com/lubtd/planet
 5 	        spn-11 		https://github.com/tendermint/spn.git
-4 		spn-11 		https://github.com/tendermint/spn.git
-3 		mars-1 		https://github.com/lubtd/planet.git
-2 		spn-10 		https://github.com/tendermint/spn.git
+4 		    spn-11 		https://github.com/tendermint/spn.git
+3 		    mars-1 		https://github.com/lubtd/planet.git
+2 		    spn-10 		https://github.com/tendermint/spn.git
 1 	        spn-1 		https://github.com/tendermint/spn
 ```
 

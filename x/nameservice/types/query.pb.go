@@ -298,12 +298,12 @@ func (m *QueryAllWhoisResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "darxan.nameservice.nameservice.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "darxan.nameservice.nameservice.QueryParamsResponse")
-	proto.RegisterType((*QueryGetWhoisRequest)(nil), "darxan.nameservice.nameservice.QueryGetWhoisRequest")
-	proto.RegisterType((*QueryGetWhoisResponse)(nil), "darxan.nameservice.nameservice.QueryGetWhoisResponse")
-	proto.RegisterType((*QueryAllWhoisRequest)(nil), "darxan.nameservice.nameservice.QueryAllWhoisRequest")
-	proto.RegisterType((*QueryAllWhoisResponse)(nil), "darxan.nameservice.nameservice.QueryAllWhoisResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "ummachain.ummacore.nameservice.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "ummachain.ummacore.nameservice.QueryParamsResponse")
+	proto.RegisterType((*QueryGetWhoisRequest)(nil), "ummachain.ummacore.nameservice.QueryGetWhoisRequest")
+	proto.RegisterType((*QueryGetWhoisResponse)(nil), "ummachain.ummacore.nameservice.QueryGetWhoisResponse")
+	proto.RegisterType((*QueryAllWhoisRequest)(nil), "ummachain.ummacore.nameservice.QueryAllWhoisRequest")
+	proto.RegisterType((*QueryAllWhoisResponse)(nil), "ummachain.ummacore.nameservice.QueryAllWhoisResponse")
 }
 
 func init() { proto.RegisterFile("nameservice/query.proto", fileDescriptor_37776ef2c2bc2f1b) }
@@ -373,7 +373,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/darxan.nameservice.nameservice.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ummachain.ummacore.nameservice.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -382,7 +382,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) Whois(ctx context.Context, in *QueryGetWhoisRequest, opts ...grpc.CallOption) (*QueryGetWhoisResponse, error) {
 	out := new(QueryGetWhoisResponse)
-	err := c.cc.Invoke(ctx, "/darxan.nameservice.nameservice.Query/Whois", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ummachain.ummacore.nameservice.Query/Whois", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -391,7 +391,7 @@ func (c *queryClient) Whois(ctx context.Context, in *QueryGetWhoisRequest, opts 
 
 func (c *queryClient) WhoisAll(ctx context.Context, in *QueryAllWhoisRequest, opts ...grpc.CallOption) (*QueryAllWhoisResponse, error) {
 	out := new(QueryAllWhoisResponse)
-	err := c.cc.Invoke(ctx, "/darxan.nameservice.nameservice.Query/WhoisAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ummachain.ummacore.nameservice.Query/WhoisAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -436,7 +436,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/darxan.nameservice.nameservice.Query/Params",
+		FullMethod: "/ummachain.ummacore.nameservice.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -454,7 +454,7 @@ func _Query_Whois_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/darxan.nameservice.nameservice.Query/Whois",
+		FullMethod: "/ummachain.ummacore.nameservice.Query/Whois",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Whois(ctx, req.(*QueryGetWhoisRequest))
@@ -472,7 +472,7 @@ func _Query_WhoisAll_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/darxan.nameservice.nameservice.Query/WhoisAll",
+		FullMethod: "/ummachain.ummacore.nameservice.Query/WhoisAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).WhoisAll(ctx, req.(*QueryAllWhoisRequest))
@@ -481,7 +481,7 @@ func _Query_WhoisAll_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "darxan.nameservice.nameservice.Query",
+	ServiceName: "ummachain.ummacore.nameservice.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

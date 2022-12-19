@@ -49,7 +49,7 @@ if ! ummad keys show validator $KEYRING; then
 
   # hardcode the validator account for this instance
   echo "$PASSWORD" | ummad add-genesis-account validator "1000000000$STAKE,1000000000$FEE" $KEYRING
-  ummad add-genesis-account umma1dgqzpmksxcuh0jgwnmzlz4azf5r3nussfqhjqc "10000000000000$STAKE,100000000000$FEE" $KEYRING
+  ummad add-genesis-account umma1ecjc4a42wyvtgck80teq2gg5q0gplxzft4xx5m "10000000000000$STAKE,100000000000$FEE" $KEYRING
   ummad add-genesis-account umma1gpsh2h2z828gu8kgt5w28fel2krkkgjmrpe9en "1000000000000$STAKE,100000000000$FEE" $KEYRING
   # (optionally) add a few more genesis accounts
   for addr in "$@"; do

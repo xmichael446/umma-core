@@ -21,7 +21,7 @@ go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=pebbl
 ummad init test
 
 # Get Genesis
-wget https://download.dimi.sh/juno-phoenix2-genesis.tar.gz # TODO:
+  wget https://download.dimi.sh/juno-phoenix2-genesis.tar.gz # TODO:
 tar -xvf juno-phoenix2-genesis.tar.gz
 mv juno-phoenix2-genesis.json "$HOME/.umma/config/genesis.json"
 

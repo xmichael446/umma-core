@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-ignore
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "ummachain.ummacore.nameservice";

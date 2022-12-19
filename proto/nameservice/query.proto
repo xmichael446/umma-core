@@ -13,16 +13,16 @@ option go_package = "github.com/umma-chain/umma-core/x/nameservice/types";
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/umma-chain/umma-core/nameservice/params";
+    option (google.api.http).get = "/umma/nameservice/params";
   }
   // Queries a Whois by index.
   rpc Whois(QueryGetWhoisRequest) returns (QueryGetWhoisResponse) {
-    option (google.api.http).get = "/umma-chain/umma-core/nameservice/whois/{index}";
+    option (google.api.http).get = "/umma/nameservice/whois/{index}";
   }
 
   // Queries a list of Whois items.
   rpc WhoisAll(QueryAllWhoisRequest) returns (QueryAllWhoisResponse) {
-    option (google.api.http).get = "/umma-chain/umma-core/nameservice/whois";
+    option (google.api.http).get = "/umma/nameservice/whois";
   }
 
   // this line is used by starport scaffolding # 2

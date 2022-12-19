@@ -308,12 +308,12 @@ func (m *MsgDeleteNameResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgDeleteNameResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgBuyName)(nil), "darxan.nameservice.nameservice.MsgBuyName")
-	proto.RegisterType((*MsgBuyNameResponse)(nil), "darxan.nameservice.nameservice.MsgBuyNameResponse")
-	proto.RegisterType((*MsgSetName)(nil), "darxan.nameservice.nameservice.MsgSetName")
-	proto.RegisterType((*MsgSetNameResponse)(nil), "darxan.nameservice.nameservice.MsgSetNameResponse")
-	proto.RegisterType((*MsgDeleteName)(nil), "darxan.nameservice.nameservice.MsgDeleteName")
-	proto.RegisterType((*MsgDeleteNameResponse)(nil), "darxan.nameservice.nameservice.MsgDeleteNameResponse")
+	proto.RegisterType((*MsgBuyName)(nil), "ummachain.ummacore.nameservice.MsgBuyName")
+	proto.RegisterType((*MsgBuyNameResponse)(nil), "ummachain.ummacore.nameservice.MsgBuyNameResponse")
+	proto.RegisterType((*MsgSetName)(nil), "ummachain.ummacore.nameservice.MsgSetName")
+	proto.RegisterType((*MsgSetNameResponse)(nil), "ummachain.ummacore.nameservice.MsgSetNameResponse")
+	proto.RegisterType((*MsgDeleteName)(nil), "ummachain.ummacore.nameservice.MsgDeleteName")
+	proto.RegisterType((*MsgDeleteNameResponse)(nil), "ummachain.ummacore.nameservice.MsgDeleteNameResponse")
 }
 
 func init() { proto.RegisterFile("nameservice/tx.proto", fileDescriptor_df4dec9b515ec245) }
@@ -368,7 +368,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) BuyName(ctx context.Context, in *MsgBuyName, opts ...grpc.CallOption) (*MsgBuyNameResponse, error) {
 	out := new(MsgBuyNameResponse)
-	err := c.cc.Invoke(ctx, "/darxan.nameservice.nameservice.Msg/BuyName", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ummachain.ummacore.nameservice.Msg/BuyName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -377,7 +377,7 @@ func (c *msgClient) BuyName(ctx context.Context, in *MsgBuyName, opts ...grpc.Ca
 
 func (c *msgClient) SetName(ctx context.Context, in *MsgSetName, opts ...grpc.CallOption) (*MsgSetNameResponse, error) {
 	out := new(MsgSetNameResponse)
-	err := c.cc.Invoke(ctx, "/darxan.nameservice.nameservice.Msg/SetName", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ummachain.ummacore.nameservice.Msg/SetName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -386,7 +386,7 @@ func (c *msgClient) SetName(ctx context.Context, in *MsgSetName, opts ...grpc.Ca
 
 func (c *msgClient) DeleteName(ctx context.Context, in *MsgDeleteName, opts ...grpc.CallOption) (*MsgDeleteNameResponse, error) {
 	out := new(MsgDeleteNameResponse)
-	err := c.cc.Invoke(ctx, "/darxan.nameservice.nameservice.Msg/DeleteName", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ummachain.ummacore.nameservice.Msg/DeleteName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -428,7 +428,7 @@ func _Msg_BuyName_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/darxan.nameservice.nameservice.Msg/BuyName",
+		FullMethod: "/ummachain.ummacore.nameservice.Msg/BuyName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).BuyName(ctx, req.(*MsgBuyName))
@@ -446,7 +446,7 @@ func _Msg_SetName_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/darxan.nameservice.nameservice.Msg/SetName",
+		FullMethod: "/ummachain.ummacore.nameservice.Msg/SetName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SetName(ctx, req.(*MsgSetName))
@@ -464,7 +464,7 @@ func _Msg_DeleteName_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/darxan.nameservice.nameservice.Msg/DeleteName",
+		FullMethod: "/ummachain.ummacore.nameservice.Msg/DeleteName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).DeleteName(ctx, req.(*MsgDeleteName))
@@ -473,7 +473,7 @@ func _Msg_DeleteName_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "darxan.nameservice.nameservice.Msg",
+	ServiceName: "ummachain.ummacore.nameservice.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

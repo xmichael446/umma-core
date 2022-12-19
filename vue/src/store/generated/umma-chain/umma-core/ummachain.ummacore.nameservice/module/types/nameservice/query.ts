@@ -1,6 +1,7 @@
 /* eslint-disable */
+// @ts-ignore
 import { Reader, Writer } from "protobufjs/minimal";
-import { Params } from "../nameservice/params";
+import { Params } from "./params";
 
 export const protobufPackage = "ummachain.ummacore.nameservice";
 

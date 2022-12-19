@@ -13,15 +13,16 @@ func (k msgServer) BuyName(goCtx context.Context, msg *types.MsgBuyName) (*types
 	// Try getting a name from the store
 	whois, isFound := k.GetWhois(ctx, msg.Name)
 	// Set the price at which the name has to be bought if it didn't have an owner before
-	minPrice := sdk.Coins{sdk.NewInt64Coin("aumma", 10_000_000)}
+	minPrice := sdk.Coins{sdk.NewInt64Coin("aumma", 1_000_000)}
 	// Convert price and bid strings to sdk.Coins
-	price, _ := sdk.ParseCoinsNormalized(whois.Price)
+	price, _ := sdk.ParseCoinsNormalized(whois.Price) // COMMENT
 	bid, _ := sdk.ParseCoinsNormalized(msg.Bid)
 	// Convert owner and buyer address strings to sdk.AccAddress
-	owner, _ := sdk.AccAddressFromBech32(whois.Owner)
+	owner, _ := sdk.AccAddressFromBech32(whois.Owner) // COMMENT
 	buyer, _ := sdk.AccAddressFromBech32(msg.Creator)
 	// If a name is found in store
 	if isFound {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Sorry, but this name is not available")
 		// If the current price is higher than the bid
 		if price.IsAllGT(bid) {
 			// Throw an error

@@ -1,5 +1,5 @@
 syntax = "proto3";
-package darxan.nameservice.nameservice;
+package ummachain.ummacore.nameservice;
 
 option go_package = "github.com/umma-chain/umma-core/x/nameservice/types";
 

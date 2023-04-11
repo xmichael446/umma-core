@@ -6,9 +6,12 @@ exchanges.json
 umma_out.json
 bin
 .vscode
+DOCUMNETS
+DOCUMNETS/*
 cache_libs/
+cache_libs/*
 cache_libs_v12/
+cache_libs_v12/*
 # emacs editor config
 \#*\#
 .\#*
-DOCUMNETS/

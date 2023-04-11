@@ -20,7 +20,7 @@ func CmdMintAndSendTokens() *cobra.Command {
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argDenom := args[0]
-			argAmount, err := cast.ToInt32E(args[1])
+			argAmount, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}

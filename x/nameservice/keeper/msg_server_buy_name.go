@@ -15,24 +15,24 @@ func (k msgServer) BuyName(goCtx context.Context, msg *types.MsgBuyName) (*types
 	// Set the price at which the name has to be bought if it didn't have an owner before
 	minPrice := sdk.Coins{sdk.NewInt64Coin("aumma", 1_000_000)}
 	// Convert price and bid strings to sdk.Coins
-	price, _ := sdk.ParseCoinsNormalized(whois.Price) // COMMENT
+	//price, _ := sdk.ParseCoinsNormalized(whois.Price) // COMMENT
 	bid, _ := sdk.ParseCoinsNormalized(msg.Bid)
 	// Convert owner and buyer address strings to sdk.AccAddress
-	owner, _ := sdk.AccAddressFromBech32(whois.Owner) // COMMENT
+	//owner, _ := sdk.AccAddressFromBech32(whois.Owner) // COMMENT
 	buyer, _ := sdk.AccAddressFromBech32(msg.Creator)
 	// If a name is found in store
 	if isFound {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Sorry, but this name is not available")
 		// If the current price is higher than the bid
-		if price.IsAllGT(bid) {
-			// Throw an error
-			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid is not high enough")
-		}
+		//if price.IsAllGT(bid) {
+		//	// Throw an error
+		//	return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid is not high enough")
+		//}
 		// Otherwise (when the bid is higher), send tokens from the buyer to the owner
-		err := k.bankKeeper.SendCoins(ctx, buyer, owner, bid)
-		if err != nil {
-			return nil, err
-		}
+		//err := k.bankKeeper.SendCoins(ctx, buyer, owner, bid)
+		//if err != nil {
+		//	return nil, err
+		//}
 	} else { // If the name is not found in the store
 		// If the minimum price is higher than the bid
 		if minPrice.IsAllGT(bid) {

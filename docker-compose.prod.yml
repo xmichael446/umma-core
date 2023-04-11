@@ -1,7 +1,7 @@
 version: "3"
 services:
   umma:
-    image: umma:latest
+    image: umma_new:latest
     command: ./setup_and_run.sh umma1gpsh2h2z828gu8kgt5w28fel2krkkgjmrpe9en
     volumes:
       - /home/owner/.umma:/root/.umma

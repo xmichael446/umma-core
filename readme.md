@@ -17,3 +17,6 @@ STAKE_TOKEN=aumma UNSAFE_CORS=true docker-compose up
 - [Cosmos SDK Tutorials](https://tutorials.cosmos.network)
 - [Telegram](https://t.me/umma_chain)
 - [Discord](https://t.me/umma_chain)
+
+
+NEW WASM VERSION TESTED IMAGE NAME umma_contract

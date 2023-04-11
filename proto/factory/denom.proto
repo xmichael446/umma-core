@@ -6,12 +6,12 @@ option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 message Denom {
   string denom = 1; 
   string description = 2; 
-  string ticker = 3; 
-  int32 precision = 4; 
-  string siteUrl = 5; 
+  string symbol = 3; 
+  int32 decimal = 4; 
+  string url = 5; 
   string logoUrl = 6; 
-  int32 maxSupply = 7; 
-  int32 supply = 8; 
+  uint64 maxSupply = 7; 
+  uint64 supply = 8; 
   bool canChangeMaxSupply = 9; 
   string owner = 10;
 }

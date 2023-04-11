@@ -4,10 +4,9 @@ import (
 	"strconv"
 	"testing"
 
-	keepertest "github.com/umma-chain/umma-core/testutil/keeper"
-	//keepertest "github.com/FounderDAO/juno/v11/testutil/keeper"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+	keepertest "github.com/umma-chain/umma-core/testutil/keeper"
 	"github.com/umma-chain/umma-core/testutil/nullify"
 	"github.com/umma-chain/umma-core/x/factory/keeper"
 	"github.com/umma-chain/umma-core/x/factory/types"
@@ -40,6 +39,20 @@ func TestDenomGet(t *testing.T) {
 		)
 	}
 }
+
+//func TestDenomRemove(t *testing.T) {
+//	keeper, ctx := keepertest.FactoryKeeper(t)
+//	items := createNDenom(keeper, ctx, 10)
+//	for _, item := range items {
+//		keeper.RemoveDenom(ctx,
+//			item.Denom,
+//		)
+//		_, found := keeper.GetDenom(ctx,
+//			item.Denom,
+//		)
+//		require.False(t, found)
+//	}
+//}
 
 func TestDenomGetAll(t *testing.T) {
 	keeper, ctx := keepertest.FactoryKeeper(t)

@@ -11,7 +11,7 @@ import (
 
 func CmdCreateDenom() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-denom [denom] [description] [ticker] [precision] [site-url] [logo-url] [max-supply] [can-change-max-supply]",
+		Use:   "create-denom [denom] [description] [symbol] [decimal] [url] [logo-url] [max-supply] [can-change-max-supply]",
 		Short: "Create a new Denom",
 		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -20,14 +20,14 @@ func CmdCreateDenom() *cobra.Command {
 
 			// Get value arguments
 			argDescription := args[1]
-			argTicker := args[2]
-			argPrecision, err := cast.ToInt32E(args[3])
+			argSymbol := args[2]
+			argDecimal, err := cast.ToInt32E(args[3])
 			if err != nil {
 				return err
 			}
-			argSiteUrl := args[4]
+			argUrl := args[4]
 			argLogoUrl := args[5]
-			argMaxSupply, err := cast.ToInt32E(args[6])
+			argMaxSupply, err := cast.ToUint64E(args[6])
 			if err != nil {
 				return err
 			}
@@ -45,9 +45,9 @@ func CmdCreateDenom() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				indexDenom,
 				argDescription,
-				argTicker,
-				argPrecision,
-				argSiteUrl,
+				argSymbol,
+				argDecimal,
+				argUrl,
 				argLogoUrl,
 				argMaxSupply,
 				argCanChangeMaxSupply,
@@ -66,7 +66,7 @@ func CmdCreateDenom() *cobra.Command {
 
 func CmdUpdateDenom() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-denom [denom] [description] [site-url] [logo-url] [max-supply] [can-change-max-supply]",
+		Use:   "update-denom [denom] [description] [url] [logo-url] [max-supply] [can-change-max-supply]",
 		Short: "Update a Denom",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -75,14 +75,12 @@ func CmdUpdateDenom() *cobra.Command {
 
 			// Get value arguments
 			argDescription := args[1]
-
-			argSiteUrl := args[2]
+			argUrl := args[2]
 			argLogoUrl := args[3]
-			argMaxSupply, err := cast.ToInt32E(args[4])
+			argMaxSupply, err := cast.ToUint64E(args[4])
 			if err != nil {
 				return err
 			}
-
 			argCanChangeMaxSupply, err := cast.ToBoolE(args[5])
 			if err != nil {
 				return err
@@ -97,7 +95,7 @@ func CmdUpdateDenom() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				indexDenom,
 				argDescription,
-				argSiteUrl,
+				argUrl,
 				argLogoUrl,
 				argMaxSupply,
 				argCanChangeMaxSupply,
@@ -113,3 +111,32 @@ func CmdUpdateDenom() *cobra.Command {
 
 	return cmd
 }
+
+//func CmdDeleteDenom() *cobra.Command {
+//	cmd := &cobra.Command{
+//		Use:   "delete-denom [denom]",
+//		Short: "Delete a Denom",
+//		Args:  cobra.ExactArgs(1),
+//		RunE: func(cmd *cobra.Command, args []string) (err error) {
+//			indexDenom := args[0]
+//
+//			clientCtx, err := client.GetClientTxContext(cmd)
+//			if err != nil {
+//				return err
+//			}
+//
+//			msg := types.NewMsgDeleteDenom(
+//				clientCtx.GetFromAddress().String(),
+//				indexDenom,
+//			)
+//			if err := msg.ValidateBasic(); err != nil {
+//				return err
+//			}
+//			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+//		},
+//	}
+//
+//	flags.AddTxFlagsToCmd(cmd)
+//
+//	return cmd
+//}

@@ -10,22 +10,22 @@ option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 service Msg {
   rpc CreateDenom(MsgCreateDenom) returns (MsgCreateDenomResponse);
   rpc UpdateDenom(MsgUpdateDenom) returns (MsgUpdateDenomResponse);
+//  rpc DeleteDenom(MsgDeleteDenom) returns (MsgDeleteDenomResponse);
   rpc MintAndSendTokens(MsgMintAndSendTokens) returns (MsgMintAndSendTokensResponse);
   rpc UpdateOwner(MsgUpdateOwner) returns (MsgUpdateOwnerResponse);
-  rpc BurnTokens(MsgBurnTokens) returns (MsgBurnTokensResponse);
+  rpc BurnToken(MsgBurnToken) returns (MsgBurnTokenResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
 message MsgCreateDenom {
   string owner = 1;
   string denom = 2;
-
   string description = 3;
-  string ticker = 4;
-  int32 precision = 5;
-  string siteUrl = 6;
+  string symbol = 4;
+  int32 decimal = 5;
+  string url = 6;
   string logoUrl = 7;
-  int32 maxSupply = 8;
+  uint64 maxSupply = 8;
   bool canChangeMaxSupply = 9;
 }
 message MsgCreateDenomResponse {}
@@ -33,21 +33,25 @@ message MsgCreateDenomResponse {}
 message MsgUpdateDenom {
   string owner = 1;
   string denom = 2;
-
   string description = 3;
-  string siteUrl = 4;
+  string url = 4;
   string logoUrl = 5;
-  int32 maxSupply = 6;
-  int32 supply = 7;
-  bool canChangeMaxSupply = 8;
+  uint64 maxSupply = 6;
+  bool canChangeMaxSupply = 7;
 }
 message MsgUpdateDenomResponse {}
 
+//message MsgDeleteDenom {
+//  string owner = 1;
+//  string denom = 2;
+//}
+
+//message MsgDeleteDenomResponse {}
 
 message MsgMintAndSendTokens {
   string owner = 1;
   string denom = 2;
-  int32 amount = 3;
+  uint64 amount = 3;
   string recipient = 4;
 }
 
@@ -63,13 +67,13 @@ message MsgUpdateOwner {
 message MsgUpdateOwnerResponse {
 }
 
-message MsgBurnTokens {
+message MsgBurnToken {
   string owner = 1;
   string denom = 2;
-  int32 amount = 3;
+  uint64 amount = 3;
 }
 
-message MsgBurnTokensResponse {
+message MsgBurnTokenResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -8,7 +8,7 @@ import (
 const (
 	TypeMsgCreateDenom = "create_denom"
 	TypeMsgUpdateDenom = "update_denom"
-	TypeMsgDeleteDenom = "delete_denom"
+	//TypeMsgDeleteDenom = "delete_denom"
 )
 
 var _ sdk.Msg = &MsgCreateDenom{}
@@ -17,11 +17,11 @@ func NewMsgCreateDenom(
 	owner string,
 	denom string,
 	description string,
-	ticker string,
-	precision int32,
-	siteUrl string,
+	symbol string,
+	decimal int32,
+	url string,
 	logoUrl string,
-	maxSupply int32,
+	maxSupply uint64,
 	canChangeMaxSupply bool,
 
 ) *MsgCreateDenom {
@@ -29,9 +29,9 @@ func NewMsgCreateDenom(
 		Owner:              owner,
 		Denom:              denom,
 		Description:        description,
-		Ticker:             ticker,
-		Precision:          precision,
-		SiteUrl:            siteUrl,
+		Symbol:             symbol,
+		Decimal:            decimal,
+		Url:                url,
 		LogoUrl:            logoUrl,
 		MaxSupply:          maxSupply,
 		CanChangeMaxSupply: canChangeMaxSupply,
@@ -65,15 +65,15 @@ func (msg *MsgCreateDenom) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid owner address (%s)", err)
 	}
 
-	tickerLength := len(msg.Ticker)
-	if tickerLength < 2 {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Ticker length must be at least 2 chars long")
+	symbolLength := len(msg.Symbol)
+	if symbolLength < 3 {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Symbol length must be at least 3 chars long")
 	}
-	if tickerLength > 14 {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Ticker length must be 14 chars long maximum")
+	if symbolLength > 10 {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Symbol length must be 10 chars long maximum")
 	}
 	if msg.MaxSupply == 0 {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Max Supply must be greater than 0")
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Max Symbol must be greater than 0")
 	}
 	return nil
 }
@@ -84,9 +84,9 @@ func NewMsgUpdateDenom(
 	owner string,
 	denom string,
 	description string,
-	siteUrl string,
+	url string,
 	logoUrl string,
-	maxSupply int32,
+	maxSupply uint64,
 	canChangeMaxSupply bool,
 
 ) *MsgUpdateDenom {
@@ -94,7 +94,7 @@ func NewMsgUpdateDenom(
 		Owner:              owner,
 		Denom:              denom,
 		Description:        description,
-		SiteUrl:            siteUrl,
+		Url:                url,
 		LogoUrl:            logoUrl,
 		MaxSupply:          maxSupply,
 		CanChangeMaxSupply: canChangeMaxSupply,
@@ -132,3 +132,44 @@ func (msg *MsgUpdateDenom) ValidateBasic() error {
 	}
 	return nil
 }
+
+//var _ sdk.Msg = &MsgDeleteDenom{}
+
+//func NewMsgDeleteDenom(
+//	owner string,
+//	denom string,
+//
+//) *MsgDeleteDenom {
+//	return &MsgDeleteDenom{
+//		Owner: owner,
+//		Denom: denom,
+//	}
+//}
+//func (msg *MsgDeleteDenom) Route() string {
+//	return RouterKey
+//}
+//
+//func (msg *MsgDeleteDenom) Type() string {
+//	return TypeMsgDeleteDenom
+//}
+//
+//func (msg *MsgDeleteDenom) GetSigners() []sdk.AccAddress {
+//	owner, err := sdk.AccAddressFromBech32(msg.Owner)
+//	if err != nil {
+//		panic(err)
+//	}
+//	return []sdk.AccAddress{owner}
+//}
+//
+//func (msg *MsgDeleteDenom) GetSignBytes() []byte {
+//	bz := ModuleCdc.MustMarshalJSON(msg)
+//	return sdk.MustSortJSON(bz)
+//}
+//
+//func (msg *MsgDeleteDenom) ValidateBasic() error {
+//	_, err := sdk.AccAddressFromBech32(msg.Owner)
+//	if err != nil {
+//		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid owner address (%s)", err)
+//	}
+//	return nil
+//}

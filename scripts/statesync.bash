@@ -20,19 +20,21 @@ go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=pebbl
 # Initialize chain.
 ummad init test
 
-# Get Genesis
-  wget https://download.dimi.sh/juno-phoenix2-genesis.tar.gz # TODO:
-tar -xvf juno-phoenix2-genesis.tar.gz
-mv juno-phoenix2-genesis.json "$HOME/.umma/config/genesis.json"
+# Get Genesis OLD SOLUTION
+#wget https://download.dimi.sh/juno-phoenix2-genesis.tar.gz # TODO:
+#tar -xvf juno-phoenix2-genesis.tar.gz
+#mv juno-phoenix2-genesis.json "$HOME/.umma/config/genesis.json"
 
+# NEW SOLUTION
+wget -O $HOME/.ummad/config/genesis.json https://raw.githubusercontent.com/umma-chain/mainnet/main/genesis.json
 
 
 
 # Get "trust_hash" and "trust_height". TODO:
 INTERVAL=1000
-LATEST_HEIGHT="$(curl -s https://juno-rpc.polkachu.com/block | jq -r .result.block.header.height)"
+LATEST_HEIGHT="$(curl -s http://135.125.3.192:26657/block | jq -r .result.block.header.height)"
 BLOCK_HEIGHT="$((LATEST_HEIGHT-INTERVAL))"
-TRUST_HASH="$(curl -s "https://juno-rpc.polkachu.com/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)"
+TRUST_HASH="$(curl -s "http://135.125.3.192:26657/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)"
 
 # Print out block and transaction hash from which to sync state.
 echo "trust_height: $BLOCK_HEIGHT"

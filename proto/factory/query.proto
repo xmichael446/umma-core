@@ -14,16 +14,16 @@ option go_package = "github.com/umma-chain/umma-core/x/factory/types";
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/umma/factory/params";
+    option (google.api.http).get = "/umma-chain/umma-core/factory/params";
   }
   // Queries a Denom by index.
 	rpc Denom(QueryGetDenomRequest) returns (QueryGetDenomResponse) {
-		option (google.api.http).get = "/umma/factory/denom/{denom}";
+		option (google.api.http).get = "/umma-chain/umma-core/factory/denom/{denom}";
 	}
 
 	// Queries a list of Denom items.
 	rpc DenomAll(QueryAllDenomRequest) returns (QueryAllDenomResponse) {
-		option (google.api.http).get = "/umma/factory/denom";
+		option (google.api.http).get = "/umma-chain/umma-core/factory/denom";
 	}
 
 // this line is used by starport scaffolding # 2

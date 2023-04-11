@@ -33039,7 +33039,7 @@ paths:
       tags:
         - Query
 
-  /umma/nameservice/params:
+  /umma/nameservice/nameservice/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: UmmachainUmmacoreNameserviceParams
@@ -33075,7 +33075,7 @@ paths:
                   additionalProperties: { }
       tags:
         - Query
-  /umma/nameservice/whois:
+  /umma/nameservice/nameservice/whois:
     get:
         summary: Queries a list of Whois items.
         operationId: UmmachainUmmacoreNameserviceWhoisAll
@@ -33204,7 +33204,7 @@ paths:
             type: boolean
         tags:
           - Query
-  '/umma/nameservice/whois/{index}':
+  '/umma/nameservice/nameservice/whois/{index}':
     get:
       summary: Queries a Whois by index.
       operationId: UmmachainUmmacoreNameserviceWhois

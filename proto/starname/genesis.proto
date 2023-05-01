@@ -1,0 +1,19 @@
+syntax = "proto3";
+package ummachain.ummacore.starname.v1beta1;
+
+import "gogoproto/gogo.proto";
+import "starname/types.proto";
+
+option go_package = "github.com/umma-chain/umma-core/x/starname/types";
+
+// GenesisState - genesis state of x/starname
+message GenesisState {
+  repeated Domain domains = 1 [
+    (gogoproto.nullable) = false,
+    (gogoproto.jsontag) = "domains,omitempty"
+  ];
+  repeated Account accounts = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.jsontag) = "accounts,omitempty"
+  ];
+}

@@ -108,7 +108,17 @@ import (
 	nameservicemodulekeeper "github.com/umma-chain/umma-core/x/nameservice/keeper"
 	nameservicemoduletypes "github.com/umma-chain/umma-core/x/nameservice/types"
 
+	burnertypes "github.com/umma-chain/umma-core/x/burner/types"
+	escrowkeeper "github.com/umma-chain/umma-core/x/escrow/keeper"
+	escrowtypes "github.com/umma-chain/umma-core/x/escrow/types"
+	starnamemodule "github.com/umma-chain/umma-core/x/starname"
+	starnamemodulekeeper "github.com/umma-chain/umma-core/x/starname/keeper"
+
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/umma-chain/umma-core/x/configuration"
+	"github.com/umma-chain/umma-core/x/escrow"
+	"github.com/umma-chain/umma-core/x/offchain"
+	"github.com/umma-chain/umma-core/x/starname"
 
 	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
 	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
@@ -127,7 +137,7 @@ const (
 	Name                 = "umma"
 )
 
-// We pull these out so we can set them with LDFLAGS in the Makefile
+// We pull these out, so we can set them with LDFLAGS in the Makefile
 var (
 	NodeDir      = ".umma"
 	Bech32Prefix = "umma"
@@ -236,6 +246,10 @@ var (
 		ica.AppModuleBasic{},
 		factorymodule.AppModuleBasic{},
 		nameservicemodule.AppModuleBasic{},
+		configuration.AppModuleBasic{},
+		starnamemodule.AppModuleBasic{},
+		escrow.AppModuleBasic{},
+		offchain.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -251,6 +265,9 @@ var (
 		wasm.ModuleName:                   {authtypes.Burner},
 		factorymoduletypes.ModuleName:     {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		nameservicemoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		starnamemodule.ModuleName:         {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		escrowtypes.ModuleName:            nil,
+		burnertypes.ModuleName:            {authtypes.Burner},
 	}
 )
 
@@ -306,6 +323,10 @@ type App struct {
 	wasmKeeper        wasm.Keeper
 	NameserviceKeeper nameservicemodulekeeper.Keeper
 	scopedWasmKeeper  capabilitykeeper.ScopedKeeper
+	StarnameKeeper    starnamemodulekeeper.Keeper
+	configKeeper      configuration.Keeper
+	starnameKeeper    starname.Keeper
+	escrowKeeper      escrowkeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -343,7 +364,7 @@ func New(
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		authzkeeper.StoreKey, feegrant.StoreKey, icahosttypes.StoreKey,
 		wasm.StoreKey, factorymoduletypes.StoreKey,
-		nameservicemoduletypes.StoreKey,
+		nameservicemoduletypes.StoreKey, configuration.StoreKey, starname.DomainStoreKey, escrowtypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -515,6 +536,35 @@ func New(
 		app.BankKeeper,
 	)
 	nameserviceModule := nameservicemodule.NewAppModule(appCodec, app.NameserviceKeeper, app.AccountKeeper, app.BankKeeper)
+	app.configKeeper = configuration.NewKeeper(
+		appCodec,
+		keys[configuration.StoreKey],
+		app.getSubspace(configuration.ModuleName),
+	)
+
+	// Create the escrow keeper
+	app.escrowKeeper = escrowkeeper.NewKeeper(appCodec,
+		keys[escrowtypes.StoreKey],
+		app.getSubspace(escrowtypes.ModuleName),
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.configKeeper,
+		app.ModuleAccountAddrs(),
+	)
+	// starname keeper
+	app.starnameKeeper = starname.NewKeeper(
+		appCodec,
+		keys[starname.DomainStoreKey],
+		app.configKeeper,
+		app.BankKeeper,
+		app.escrowKeeper,
+		app.AccountKeeper,
+		app.DistrKeeper,
+		app.StakingKeeper,
+		app.getSubspace(starname.ModuleName),
+		app.CommitMultiStore(),
+	)
+
 	// register wasm gov proposal types
 	// The gov proposal types can be individually enabled
 	if len(enabledProposals) != 0 {
@@ -891,6 +941,11 @@ func (app *App) RegisterUpgradeHandlers(cfg module.Configurator) {
 	app.UpgradeKeeper.SetUpgradeHandler("v11", upgrades.CreateV11UpgradeHandler(app.mm, cfg, &app.ICAHostKeeper))
 }
 
+func (app *App) getSubspace(moduleName string) paramstypes.Subspace {
+	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
+	return subspace
+}
+
 // GetMaccPerms returns a copy of the module account permissions
 func GetMaccPerms() map[string][]string {
 	dupMaccPerms := make(map[string][]string)
@@ -918,6 +973,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(wasm.ModuleName)
 	paramsKeeper.Subspace(factorymoduletypes.ModuleName)
 	paramsKeeper.Subspace(nameservicemoduletypes.ModuleName)
+	paramsKeeper.Subspace(starnamemodule.ModuleName)
 	return paramsKeeper
 }
 

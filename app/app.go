@@ -1,6 +1,14 @@
 package app
 
 import (
+	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
+	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
+	icahostkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/keeper"
+	"github.com/gorilla/mux"
+	"github.com/rakyll/statik/fs"
+	"github.com/umma-chain/umma-core/x/burner"
+	configurationtypes "github.com/umma-chain/umma-core/x/configuration/types"
+	starnametypes "github.com/umma-chain/umma-core/x/starname/types"
 	"io"
 	"net/http"
 	"os"
@@ -96,6 +104,10 @@ import (
 	mintkeeper "github.com/umma-chain/umma-core/x/mint/keeper"
 	minttypes "github.com/umma-chain/umma-core/x/mint/types"
 
+	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
+	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
+	icatypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/types"
+
 	"github.com/CosmWasm/wasmd/x/wasm"
 	wasmclient "github.com/CosmWasm/wasmd/x/wasm/client"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
@@ -109,23 +121,18 @@ import (
 	nameservicemoduletypes "github.com/umma-chain/umma-core/x/nameservice/types"
 
 	burnertypes "github.com/umma-chain/umma-core/x/burner/types"
-	escrowkeeper "github.com/umma-chain/umma-core/x/escrow/keeper"
-	escrowtypes "github.com/umma-chain/umma-core/x/escrow/types"
-	starnamemodule "github.com/umma-chain/umma-core/x/starname"
-	starnamemodulekeeper "github.com/umma-chain/umma-core/x/starname/keeper"
 
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/umma-chain/umma-core/x/configuration"
 	"github.com/umma-chain/umma-core/x/escrow"
+
+	escrowkeeper "github.com/umma-chain/umma-core/x/escrow/keeper"
+	escrowtypes "github.com/umma-chain/umma-core/x/escrow/types"
+
+	"github.com/prometheus/client_golang/prometheus"
+	starnamemodule "github.com/umma-chain/umma-core/x/starname"
+
 	"github.com/umma-chain/umma-core/x/offchain"
 	"github.com/umma-chain/umma-core/x/starname"
-
-	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
-	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
-	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
-	icahostkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/keeper"
-	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
-	icatypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/types"
 
 	encparams "github.com/umma-chain/umma-core/app/params"  // TODO:
 	upgrades "github.com/umma-chain/umma-core/app/upgrades" // TODO:
@@ -243,9 +250,11 @@ var (
 		vesting.AppModuleBasic{},
 		authzmodule.AppModuleBasic{},
 		wasm.AppModuleBasic{},
-		ica.AppModuleBasic{},
+
+		// CUSTOM MODULES
 		factorymodule.AppModuleBasic{},
 		nameservicemodule.AppModuleBasic{},
+
 		configuration.AppModuleBasic{},
 		starnamemodule.AppModuleBasic{},
 		escrow.AppModuleBasic{},
@@ -254,20 +263,24 @@ var (
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:        nil,
-		distrtypes.ModuleName:             nil,
-		minttypes.ModuleName:              {authtypes.Minter},
-		stakingtypes.BondedPoolName:       {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName:    {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:               {authtypes.Burner},
-		ibctransfertypes.ModuleName:       {authtypes.Minter, authtypes.Burner},
-		icatypes.ModuleName:               nil,
+		authtypes.FeeCollectorName:     nil,
+		distrtypes.ModuleName:          nil,
+		minttypes.ModuleName:           {authtypes.Minter},
+		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:            {authtypes.Burner},
+		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		// CUSTOM MODULES
 		wasm.ModuleName:                   {authtypes.Burner},
 		factorymoduletypes.ModuleName:     {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		nameservicemoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
-		starnamemodule.ModuleName:         {authtypes.Minter, authtypes.Burner, authtypes.Staking},
-		escrowtypes.ModuleName:            nil,
-		burnertypes.ModuleName:            {authtypes.Burner},
+		//starnamemodule.ModuleName:         {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+
+		escrowtypes.ModuleName: nil,
+		burnertypes.ModuleName: {authtypes.Burner},
+	}
+	allowedReceivingModules = map[string]bool{
+		burnertypes.ModuleName: true,
 	}
 )
 
@@ -323,10 +336,12 @@ type App struct {
 	wasmKeeper        wasm.Keeper
 	NameserviceKeeper nameservicemodulekeeper.Keeper
 	scopedWasmKeeper  capabilitykeeper.ScopedKeeper
-	StarnameKeeper    starnamemodulekeeper.Keeper
-	configKeeper      configuration.Keeper
-	starnameKeeper    starname.Keeper
-	escrowKeeper      escrowkeeper.Keeper
+
+	configurator module.Configurator
+
+	configKeeper   configuration.Keeper
+	starnameKeeper starname.Keeper
+	escrowKeeper   escrowkeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -364,7 +379,10 @@ func New(
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		authzkeeper.StoreKey, feegrant.StoreKey, icahosttypes.StoreKey,
 		wasm.StoreKey, factorymoduletypes.StoreKey,
-		nameservicemoduletypes.StoreKey, configuration.StoreKey, starname.DomainStoreKey, escrowtypes.StoreKey,
+		nameservicemoduletypes.StoreKey,
+		configuration.StoreKey,
+		starname.DomainStoreKey,
+		escrowtypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -419,7 +437,13 @@ func New(
 	app.CrisisKeeper = crisiskeeper.NewKeeper(
 		app.GetSubspace(crisistypes.ModuleName), invCheckPeriod, app.BankKeeper, authtypes.FeeCollectorName,
 	)
-	app.UpgradeKeeper = upgradekeeper.NewKeeper(skipUpgradeHeights, keys[upgradetypes.StoreKey], appCodec, homePath, nil)
+	app.UpgradeKeeper = upgradekeeper.NewKeeper(
+		skipUpgradeHeights,
+		keys[upgradetypes.StoreKey],
+		appCodec,
+		homePath,
+		app.BaseApp,
+	)
 
 	// upgrade handlers
 	cfg := module.NewConfigurator(appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
@@ -536,16 +560,17 @@ func New(
 		app.BankKeeper,
 	)
 	nameserviceModule := nameservicemodule.NewAppModule(appCodec, app.NameserviceKeeper, app.AccountKeeper, app.BankKeeper)
+
 	app.configKeeper = configuration.NewKeeper(
 		appCodec,
 		keys[configuration.StoreKey],
-		app.getSubspace(configuration.ModuleName),
+		app.GetSubspace(configuration.ModuleName),
 	)
 
 	// Create the escrow keeper
 	app.escrowKeeper = escrowkeeper.NewKeeper(appCodec,
 		keys[escrowtypes.StoreKey],
-		app.getSubspace(escrowtypes.ModuleName),
+		app.GetSubspace(escrowtypes.ModuleName),
 		app.AccountKeeper,
 		app.BankKeeper,
 		app.configKeeper,
@@ -561,15 +586,27 @@ func New(
 		app.AccountKeeper,
 		app.DistrKeeper,
 		app.StakingKeeper,
-		app.getSubspace(starname.ModuleName),
+		app.GetSubspace(starname.ModuleName),
 		app.CommitMultiStore(),
 	)
-
+	// create evidence keeper with router
+	evidenceKeeper = evidencekeeper.NewKeeper(
+		appCodec,
+		keys[evidencetypes.StoreKey],
+		&app.StakingKeeper,
+		app.SlashingKeeper,
+	)
+	app.EvidenceKeeper = *evidenceKeeper
 	// register wasm gov proposal types
 	// The gov proposal types can be individually enabled
 	if len(enabledProposals) != 0 {
 		govRouter.AddRoute(wasm.RouterKey, wasm.NewWasmProposalHandler(app.wasmKeeper, enabledProposals))
 	}
+	// register the staking hooks TODO: NEW
+	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
+	app.StakingKeeper = *stakingKeeper.SetHooks(
+		stakingtypes.NewMultiStakingHooks(app.DistrKeeper.Hooks(), app.SlashingKeeper.Hooks()),
+	)
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferIBCModule).
@@ -612,10 +649,15 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		params.NewAppModule(app.ParamsKeeper),
 		authzmodule.NewAppModule(appCodec, app.AuthzKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),
-		transferModule,
 		icaModule,
+		transferModule,
 		factoryModule,
 		nameserviceModule,
+		// TODO: NEW CODE
+		configuration.NewAppModule(app.configKeeper),
+		starname.NewAppModule(app.starnameKeeper),
+		escrow.NewAppModule(appCodec, app.escrowKeeper),
+		burner.NewAppModule(app.BankKeeper, app.AccountKeeper),
 
 		// this line is used by starport scaffolding # stargate/app/appModule
 		wasm.NewAppModule(appCodec, &app.wasmKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper),
@@ -645,10 +687,15 @@ func New(
 		// additional modules
 		ibchost.ModuleName,
 		ibctransfertypes.ModuleName,
-		icatypes.ModuleName,
+
 		wasm.ModuleName,
 		factorymoduletypes.ModuleName,
 		nameservicemoduletypes.ModuleName,
+		// TODO: NEW CODE
+		starnametypes.ModuleName,
+		escrowtypes.ModuleName,
+		burnertypes.ModuleName,
+		configurationtypes.ModuleName,
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -672,9 +719,15 @@ func New(
 		ibchost.ModuleName,
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
+
 		wasm.ModuleName,
 		factorymoduletypes.ModuleName,
 		nameservicemoduletypes.ModuleName,
+		// TODO: NEW CODE
+		starnametypes.ModuleName,
+		escrowtypes.ModuleName,
+		burnertypes.ModuleName,
+		configurationtypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -704,8 +757,14 @@ func New(
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
 		wasm.ModuleName,
+
 		factorymoduletypes.ModuleName,
 		nameservicemoduletypes.ModuleName,
+		// TODO: NEW CODE
+		starnametypes.ModuleName,
+		escrowtypes.ModuleName,
+		burnertypes.ModuleName,
+		configurationtypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -770,7 +829,13 @@ func New(
 		if err := app.LoadLatestVersion(); err != nil {
 			tmos.Exit(err.Error())
 		}
+		//ctx := app.BaseApp.NewUncachedContext(true, tmproto.Header{})
 
+		// Initialize pinned codes in wasmvm as they are not persisted there
+		//if err := app.WasmKeeper.InitializePinnedCodes(ctx); err != nil {
+		//	tmos.Exit(fmt.Sprintf("failed initialize pinned codes %s", err))
+		//}
+		//TODO: thing
 		// Initialize and seal the capability keeper so all persistent capabilities
 		// are loaded in-memory and prevent any further modules from creating scoped
 		// sub-keepers.
@@ -779,6 +844,7 @@ func New(
 		// Note that since this reads from the store, we can only perform it when
 		// `loadLatest` is set to true.
 		app.CapabilityKeeper.Seal()
+		//return app //TODO: thing
 	}
 
 	app.ScopedIBCKeeper = scopedIBCKeeper
@@ -848,7 +914,8 @@ func (app *App) LoadHeight(height int64) error {
 func (app *App) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
-		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = true
+		moduleCanReceive, modulePresentInArray := allowedReceivingModules[acc]
+		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = !(modulePresentInArray && moduleCanReceive)
 	}
 
 	return modAccAddrs
@@ -904,6 +971,17 @@ func (app *App) GetSubspace(moduleName string) paramstypes.Subspace {
 	return subspace
 }
 
+// RegisterSwaggerAPI TODO: NEW CODE
+func RegisterSwaggerAPI(rtr *mux.Router) {
+	statikFS, err := fs.New()
+	if err != nil {
+		panic(err)
+	}
+
+	staticServer := http.FileServer(statikFS)
+	rtr.PathPrefix("/swagger/").Handler(http.StripPrefix("/swagger/", staticServer))
+}
+
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
 func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
@@ -923,6 +1001,10 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 	// register app's OpenAPI routes.
 	apiSvr.Router.Handle("/static/openapi.yml", http.FileServer(http.FS(docs.Docs)))
 	apiSvr.Router.HandleFunc("/", openapiconsole.Handler(Name, "/static/openapi.yml"))
+	// TODO: NEW CODE
+	if apiConfig.Swagger {
+		RegisterSwaggerAPI(apiSvr.Router)
+	}
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.
@@ -939,11 +1021,6 @@ func (app *App) RegisterTendermintService(clientCtx client.Context) {
 
 func (app *App) RegisterUpgradeHandlers(cfg module.Configurator) {
 	app.UpgradeKeeper.SetUpgradeHandler("v11", upgrades.CreateV11UpgradeHandler(app.mm, cfg, &app.ICAHostKeeper))
-}
-
-func (app *App) getSubspace(moduleName string) paramstypes.Subspace {
-	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
-	return subspace
 }
 
 // GetMaccPerms returns a copy of the module account permissions
@@ -974,6 +1051,11 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(factorymoduletypes.ModuleName)
 	paramsKeeper.Subspace(nameservicemoduletypes.ModuleName)
 	paramsKeeper.Subspace(starnamemodule.ModuleName)
+	// TODO: NEW CODE
+	paramsKeeper.Subspace(configuration.ModuleName)
+	paramsKeeper.Subspace(starname.ModuleName)
+	paramsKeeper.Subspace(escrowtypes.ModuleName)
+
 	return paramsKeeper
 }
 

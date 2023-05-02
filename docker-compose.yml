@@ -7,7 +7,7 @@ services:
         - arch=${ARCH:-x86_64}
     command: ./setup_and_run.sh umma1gpsh2h2z828gu8kgt5w28fel2krkkgjmrpe9en
     volumes:
-      - /home/owner/.umma:/root/.umma
+      - /Users/abdulazizkholbaev/Desktop/APPS/UMMA/umma-core/.umma:/root/.umma
     ports:
       - 1317:1317 # rest
       - 26656:26656 # p2p

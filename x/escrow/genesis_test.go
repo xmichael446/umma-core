@@ -21,7 +21,7 @@ import (
 type GenesisTestSuite struct {
 	suite.Suite
 	cdc       codec.JSONCodec
-	app       *app.WasmApp
+	app       *app.App
 	ctx       sdk.Context
 	storeKey  sdk.StoreKey
 	crudStore crud.Store

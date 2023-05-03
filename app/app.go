@@ -1,7 +1,12 @@
 package app
 
 import (
-	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
+	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
+
 	icahost "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host"
 	icahostkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/keeper"
 	"github.com/gorilla/mux"
@@ -9,11 +14,6 @@ import (
 	"github.com/umma-chain/umma-core/x/burner"
 	configurationtypes "github.com/umma-chain/umma-core/x/configuration/types"
 	starnametypes "github.com/umma-chain/umma-core/x/starname/types"
-	"io"
-	"net/http"
-	"os"
-	"path/filepath"
-	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec/types"
@@ -104,6 +104,7 @@ import (
 	mintkeeper "github.com/umma-chain/umma-core/x/mint/keeper"
 	minttypes "github.com/umma-chain/umma-core/x/mint/types"
 
+	ica "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts"
 	icacontrollertypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/types"
 	icahosttypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/host/types"
 	icatypes "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/types"
@@ -270,15 +271,17 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		icatypes.ModuleName:            nil,
 		// CUSTOM MODULES
 		wasm.ModuleName:                   {authtypes.Burner},
 		factorymoduletypes.ModuleName:     {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		nameservicemoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
-		//starnamemodule.ModuleName:         {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		starnamemodule.ModuleName:         {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 
 		escrowtypes.ModuleName: nil,
 		burnertypes.ModuleName: {authtypes.Burner},
 	}
+
 	allowedReceivingModules = map[string]bool{
 		burnertypes.ModuleName: true,
 	}
@@ -445,14 +448,10 @@ func New(
 		app.BaseApp,
 	)
 
+	app.StakingKeeper = stakingKeeper
+
 	// upgrade handlers
 	cfg := module.NewConfigurator(appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
-
-	// register the staking hooks
-	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
-	app.StakingKeeper = *stakingKeeper.SetHooks(
-		stakingtypes.NewMultiStakingHooks(app.DistrKeeper.Hooks(), app.SlashingKeeper.Hooks()),
-	)
 
 	// ... other modules keepers
 
@@ -498,7 +497,6 @@ func New(
 		scopedICAHostKeeper,
 		app.MsgServiceRouter(),
 	)
-	icaModule := ica.NewAppModule(nil, &app.ICAHostKeeper)
 	icaHostIBCModule := icahost.NewIBCModule(app.ICAHostKeeper)
 
 	// Create evidence Keeper for to register the IBC light client misbehaviour evidence route
@@ -604,9 +602,10 @@ func New(
 	}
 	// register the staking hooks TODO: NEW
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
-	app.StakingKeeper = *stakingKeeper.SetHooks(
+	stakingKeeper.SetHooks(
 		stakingtypes.NewMultiStakingHooks(app.DistrKeeper.Hooks(), app.SlashingKeeper.Hooks()),
 	)
+	app.StakingKeeper = stakingKeeper
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferIBCModule).
@@ -649,7 +648,7 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		params.NewAppModule(app.ParamsKeeper),
 		authzmodule.NewAppModule(appCodec, app.AuthzKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),
-		icaModule,
+		ica.NewAppModule(nil, &app.ICAHostKeeper),
 		transferModule,
 		factoryModule,
 		nameserviceModule,
@@ -687,6 +686,7 @@ func New(
 		// additional modules
 		ibchost.ModuleName,
 		ibctransfertypes.ModuleName,
+		icatypes.ModuleName,
 
 		wasm.ModuleName,
 		factorymoduletypes.ModuleName,
@@ -1053,7 +1053,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(starnamemodule.ModuleName)
 	// TODO: NEW CODE
 	paramsKeeper.Subspace(configuration.ModuleName)
-	paramsKeeper.Subspace(starname.ModuleName)
 	paramsKeeper.Subspace(escrowtypes.ModuleName)
 
 	return paramsKeeper

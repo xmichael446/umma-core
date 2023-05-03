@@ -2,9 +2,11 @@ package network
 
 import (
 	"fmt"
-	"github.com/umma-chain/umma-core/app/params"
 	"testing"
 	"time"
+
+	"github.com/CosmWasm/wasmd/x/wasm"
+	"github.com/umma-chain/umma-core/app/params"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
@@ -58,7 +60,9 @@ func DefaultConfig() network.Config {
 			return app.New(
 				val.Ctx.Logger, tmdb.NewMemDB(), nil, true, map[int64]bool{}, val.Ctx.Config.RootDir, 0,
 				params.EncodingConfig(encoding),
+				app.GetEnabledProposals(),
 				simapp.EmptyAppOptions{},
+				[]wasm.Option{},
 				baseapp.SetPruning(storetypes.NewPruningOptionsFromString(val.AppConfig.Pruning)),
 				baseapp.SetMinGasPrices(val.AppConfig.MinGasPrices),
 			)
